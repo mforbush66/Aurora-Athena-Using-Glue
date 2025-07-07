@@ -1,0 +1,1279 @@
+2025-06-28 01:59:23,809 | INFO     | Loading configuration …
+2025-06-28 01:59:23,812 | INFO     | Creating boto3 session using access keys
+2025-06-28 01:59:24,737 | INFO     | Starting Aurora-Athena ETL Pipeline
+2025-06-28 01:59:24,737 | INFO     | Step 1: Setting up Aurora database...
+2025-06-28 01:59:24,919 | INFO     | Creating Aurora cluster …
+2025-06-28 01:59:25,293 | ERROR    | Error in ETL pipeline: An error occurred (DBSubnetGroupNotFoundFault) when calling the CreateDBCluster operation: DB subnet group 'aurora-subnet-group' does not exist.
+2025-06-28 01:59:25,299 | ERROR    | Traceback (most recent call last):
+  File "/Users/mattforbush/Projects/AWS-DE_Academy/Aurora-Athena_Using_Glue/bin/dev/aurora_athena_etl_pipeline.py", line 1016, in run
+    aurora_endpoint = self.setup_aurora()
+                      ^^^^^^^^^^^^^^^^^^^
+  File "/Users/mattforbush/Projects/AWS-DE_Academy/Aurora-Athena_Using_Glue/bin/dev/aurora_athena_etl_pipeline.py", line 197, in setup_aurora
+    rds.create_db_cluster(
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/client.py", line 595, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/context.py", line 123, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/client.py", line 1058, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.errorfactory.DBSubnetGroupNotFoundFault: An error occurred (DBSubnetGroupNotFoundFault) when calling the CreateDBCluster operation: DB subnet group 'aurora-subnet-group' does not exist.
+
+2025-06-28 02:09:59,333 | INFO     | Loading configuration …
+2025-06-28 02:09:59,336 | INFO     | Creating boto3 session using access keys
+2025-06-28 02:09:59,942 | INFO     | Starting Aurora-Athena ETL Pipeline
+2025-06-28 02:09:59,942 | INFO     | Step 1: Setting up Aurora database...
+2025-06-28 02:10:00,122 | INFO     | Creating Aurora cluster …
+2025-06-28 02:10:00,472 | INFO     | Using subnet subnet-0553f25524068da63 in VPC vpc-0f15c04318b40a676 (AZ: us-east-1a)
+2025-06-28 02:10:00,472 | INFO     | Checking if DB subnet group 'aurora-subnet-group' exists...
+2025-06-28 02:10:00,532 | INFO     | Creating DB subnet group 'aurora-subnet-group'...
+2025-06-28 02:10:00,879 | ERROR    | Error in ETL pipeline: Error setting up DB subnet group: An error occurred (DBSubnetGroupDoesNotCoverEnoughAZs) when calling the CreateDBSubnetGroup operation: The DB subnet group doesn't meet Availability Zone (AZ) coverage requirement. Current AZ coverage: us-east-1a. Add subnets to cover at least 2 AZs.
+2025-06-28 02:10:00,886 | ERROR    | Traceback (most recent call last):
+  File "/Users/mattforbush/Projects/AWS-DE_Academy/Aurora-Athena_Using_Glue/bin/dev/aurora_athena_etl_pipeline.py", line 212, in setup_aurora
+    rds.describe_db_subnet_groups(DBSubnetGroupName=subnet_group_name)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/client.py", line 595, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/context.py", line 123, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/client.py", line 1058, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.errorfactory.DBSubnetGroupNotFoundFault: An error occurred (DBSubnetGroupNotFoundFault) when calling the DescribeDBSubnetGroups operation: DB Subnet group 'aurora-subnet-group' not found.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/mattforbush/Projects/AWS-DE_Academy/Aurora-Athena_Using_Glue/bin/dev/aurora_athena_etl_pipeline.py", line 216, in setup_aurora
+    rds.create_db_subnet_group(
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/client.py", line 595, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/context.py", line 123, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/client.py", line 1058, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.errorfactory.DBSubnetGroupDoesNotCoverEnoughAZs: An error occurred (DBSubnetGroupDoesNotCoverEnoughAZs) when calling the CreateDBSubnetGroup operation: The DB subnet group doesn't meet Availability Zone (AZ) coverage requirement. Current AZ coverage: us-east-1a. Add subnets to cover at least 2 AZs.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/mattforbush/Projects/AWS-DE_Academy/Aurora-Athena_Using_Glue/bin/dev/aurora_athena_etl_pipeline.py", line 1048, in run
+    aurora_endpoint = self.setup_aurora()
+                      ^^^^^^^^^^^^^^^^^^^
+  File "/Users/mattforbush/Projects/AWS-DE_Academy/Aurora-Athena_Using_Glue/bin/dev/aurora_athena_etl_pipeline.py", line 227, in setup_aurora
+    raise RuntimeError(f"Error setting up DB subnet group: {e}") from e
+RuntimeError: Error setting up DB subnet group: An error occurred (DBSubnetGroupDoesNotCoverEnoughAZs) when calling the CreateDBSubnetGroup operation: The DB subnet group doesn't meet Availability Zone (AZ) coverage requirement. Current AZ coverage: us-east-1a. Add subnets to cover at least 2 AZs.
+
+2025-06-28 02:11:33,047 | INFO     | Loading configuration …
+2025-06-28 02:11:33,050 | INFO     | Creating boto3 session using access keys
+2025-06-28 02:11:33,591 | INFO     | Starting Aurora-Athena ETL Pipeline
+2025-06-28 02:11:33,592 | INFO     | Step 1: Setting up Aurora database...
+2025-06-28 02:11:33,791 | INFO     | Creating Aurora cluster …
+2025-06-28 02:11:34,040 | INFO     | Primary subnet subnet-0553f25524068da63 in VPC vpc-0f15c04318b40a676 (AZ: us-east-1a)
+2025-06-28 02:11:34,040 | INFO     | Finding additional subnets in VPC vpc-0f15c04318b40a676 for multi-AZ coverage...
+2025-06-28 02:11:34,166 | INFO     | Adding subnet subnet-02c7622531effa24f from AZ us-east-1b
+2025-06-28 02:11:34,166 | INFO     | Using subnets from 2 AZs: us-east-1a, us-east-1b
+2025-06-28 02:11:34,166 | INFO     | Checking if DB subnet group 'aurora-subnet-group' exists...
+2025-06-28 02:11:34,227 | INFO     | Creating DB subnet group 'aurora-subnet-group'...
+2025-06-28 02:11:34,881 | INFO     | DB subnet group 'aurora-subnet-group' created successfully with subnets in 2 AZs
+2025-06-28 02:12:38,045 | INFO     | Aurora ready → aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com
+2025-06-28 02:12:38,045 | INFO     | Creating sample schema …
+2025-06-28 02:12:38,067 | WARNING  | Bootstrap skipped – cannot reach Aurora yet ((2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-06-28 02:12:38,067 | INFO     | Schema ready.
+2025-06-28 02:12:38,067 | INFO     | Aurora endpoint: aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com
+2025-06-28 02:12:38,067 | INFO     | Step 2: Getting network configuration...
+2025-06-28 02:12:38,200 | INFO     | VPC ID: vpc-0f15c04318b40a676, Subnet ID: subnet-0553f25524068da63, Security Group ID: sg-037b5747a16125191
+2025-06-28 02:12:38,200 | INFO     | Step 3: Configuring security group access...
+2025-06-28 02:12:38,285 | INFO     | Security group sg-037b5747a16125191 already has MySQL access rule
+2025-06-28 02:12:38,286 | INFO     | Step 4: Setting up VPC endpoints...
+2025-06-28 02:12:38,286 | INFO     | Setting up VPC endpoints for AWS Glue connectivity...
+2025-06-28 02:12:38,434 | INFO     | VPC endpoint for com.amazonaws.us-east-1.glue already exists
+2025-06-28 02:12:38,434 | INFO     | VPC endpoint for com.amazonaws.us-east-1.s3 already exists
+2025-06-28 02:12:38,434 | INFO     | Step 5: Initializing database tables...
+2025-06-28 02:12:38,434 | INFO     | Initializing database tables...
+2025-06-28 02:12:38,434 | INFO     | Waiting for Aurora instance to be fully available...
+2025-06-28 02:12:48,438 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 1/3)
+2025-06-28 02:12:48,441 | WARNING  | Error initializing database tables (attempt 1/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' ([Errno 8] nodename nor servname provided, or not known)")
+2025-06-28 02:12:48,441 | INFO     | Retrying in 5 seconds...
+2025-06-28 02:12:53,446 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 2/3)
+2025-06-28 02:12:53,448 | WARNING  | Error initializing database tables (attempt 2/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' ([Errno 8] nodename nor servname provided, or not known)")
+2025-06-28 02:12:53,448 | INFO     | Retrying in 10 seconds...
+2025-06-28 02:13:03,452 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 3/3)
+2025-06-28 02:13:03,454 | WARNING  | Error initializing database tables (attempt 3/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' ([Errno 8] nodename nor servname provided, or not known)")
+2025-06-28 02:13:03,455 | ERROR    | Failed to initialize database tables after multiple attempts
+2025-06-28 02:13:03,455 | INFO     | Step 6: Setting up IAM role...
+2025-06-28 02:13:03,615 | INFO     | Creating IAM role GlueServiceRole
+2025-06-28 02:13:14,094 | INFO     | IAM Role ARN: arn:aws:iam::758045074543:role/GlueServiceRole
+2025-06-28 02:13:14,095 | INFO     | Step 7: Setting up AWS Glue...
+2025-06-28 02:13:14,722 | INFO     | Found Aurora VPC ID: vpc-0f15c04318b40a676
+2025-06-28 02:13:14,912 | INFO     | Creating Glue connection aurora-mysql-connection
+2025-06-28 02:13:15,113 | INFO     | Creating crawler aurora-mysql-crawler
+2025-06-28 02:13:15,639 | INFO     | Starting crawler aurora-mysql-crawler...
+2025-06-28 02:13:27,093 | INFO     | Status = RUNNING
+2025-06-28 02:13:57,189 | INFO     | Status = STOPPING
+2025-06-28 02:14:27,289 | INFO     | Status = STOPPING
+2025-06-28 02:14:57,396 | INFO     | Status = STOPPING
+2025-06-28 02:17:30,669 | INFO     | Loading configuration …
+2025-06-28 02:17:30,671 | INFO     | Creating boto3 session using access keys
+2025-06-28 02:17:31,209 | INFO     | Starting Aurora-Athena ETL Pipeline
+2025-06-28 02:17:31,209 | INFO     | Step 1: Setting up Aurora database...
+2025-06-28 02:17:31,460 | INFO     | Aurora cluster exists.
+2025-06-28 02:17:31,618 | INFO     | Making Aurora instance aurora-mysql-cluster-instance-1 publicly accessible...
+2025-06-28 02:17:31,731 | WARNING  | Could not modify Aurora instance: An error occurred (InvalidDBInstanceState) when calling the ModifyDBInstance operation: Database instance is not in available state.
+2025-06-28 02:17:31,732 | INFO     | Aurora endpoint: aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com
+2025-06-28 02:17:31,732 | INFO     | Step 2: Getting network configuration...
+2025-06-28 02:17:31,998 | INFO     | VPC ID: vpc-0f15c04318b40a676, Subnet ID: subnet-0553f25524068da63, Security Group ID: sg-037b5747a16125191
+2025-06-28 02:17:31,998 | INFO     | Step 3: Configuring security group access...
+2025-06-28 02:17:32,091 | INFO     | Security group sg-037b5747a16125191 already has MySQL access rule
+2025-06-28 02:17:32,091 | INFO     | Step 4: Setting up VPC endpoints...
+2025-06-28 02:17:32,091 | INFO     | Setting up VPC endpoints for AWS Glue connectivity...
+2025-06-28 02:17:32,301 | INFO     | VPC endpoint for com.amazonaws.us-east-1.glue already exists
+2025-06-28 02:17:32,301 | INFO     | VPC endpoint for com.amazonaws.us-east-1.s3 already exists
+2025-06-28 02:17:32,302 | INFO     | Step 5: Initializing database tables...
+2025-06-28 02:17:32,305 | INFO     | Initializing database tables...
+2025-06-28 02:17:32,306 | INFO     | Waiting for Aurora instance to be fully available...
+2025-06-28 02:17:42,310 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 1/3)
+2025-06-28 02:18:12,335 | WARNING  | Error initializing database tables (attempt 1/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' (timed out)")
+2025-06-28 02:18:12,335 | INFO     | Retrying in 5 seconds...
+2025-06-28 02:18:17,340 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 2/3)
+2025-06-28 02:18:47,369 | WARNING  | Error initializing database tables (attempt 2/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' (timed out)")
+2025-06-28 02:18:47,370 | INFO     | Retrying in 10 seconds...
+2025-06-28 02:18:57,375 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 3/3)
+2025-06-28 02:19:27,406 | WARNING  | Error initializing database tables (attempt 3/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' (timed out)")
+2025-06-28 02:19:27,406 | ERROR    | Failed to initialize database tables after multiple attempts
+2025-06-28 02:19:27,406 | INFO     | Step 6: Setting up IAM role...
+2025-06-28 02:19:27,565 | INFO     | IAM Role ARN: arn:aws:iam::758045074543:role/GlueServiceRole
+2025-06-28 02:19:27,565 | INFO     | Step 7: Setting up AWS Glue...
+2025-06-28 02:19:28,209 | INFO     | Found Aurora VPC ID: vpc-0f15c04318b40a676
+2025-06-28 02:19:28,423 | INFO     | Glue connection aurora-mysql-connection exists
+2025-06-28 02:19:28,423 | INFO     | Updating Glue connection with correct endpoint and explicit database name: jdbc:mysql://aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com:3306/sampledb?databaseName=sampledb
+2025-06-28 02:19:28,544 | INFO     | Skipping connection test as TestConnection is only supported for Unified Connections
+2025-06-28 02:19:28,758 | INFO     | Starting crawler aurora-mysql-crawler...
+2025-06-28 02:25:00,814 | INFO     | Loading configuration …
+2025-06-28 02:25:00,817 | INFO     | Creating boto3 session using access keys
+2025-06-28 02:25:01,351 | INFO     | Starting Aurora-Athena ETL Pipeline
+2025-06-28 02:25:01,351 | INFO     | Step 1: Setting up Aurora database...
+2025-06-28 02:25:01,597 | INFO     | Aurora cluster exists.
+2025-06-28 02:25:01,745 | INFO     | Making Aurora instance aurora-mysql-cluster-instance-1 publicly accessible...
+2025-06-28 02:25:02,339 | INFO     | Waiting for Aurora instance aurora-mysql-cluster-instance-1 to become available...
+2025-06-28 02:25:02,517 | INFO     | Aurora instance aurora-mysql-cluster-instance-1 is now publicly accessible
+2025-06-28 02:25:02,517 | INFO     | Aurora endpoint: aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com
+2025-06-28 02:25:02,517 | INFO     | Step 2: Getting network configuration...
+2025-06-28 02:25:02,781 | INFO     | VPC ID: vpc-0f15c04318b40a676, Subnet ID: subnet-0553f25524068da63, Security Group ID: sg-037b5747a16125191
+2025-06-28 02:25:02,781 | INFO     | Step 3: Configuring security group access...
+2025-06-28 02:25:02,887 | INFO     | Security group sg-037b5747a16125191 already has MySQL access rule
+2025-06-28 02:25:02,887 | INFO     | Step 4: Setting up VPC endpoints...
+2025-06-28 02:25:02,887 | INFO     | Setting up VPC endpoints for AWS Glue connectivity...
+2025-06-28 02:25:02,999 | INFO     | VPC endpoint for com.amazonaws.us-east-1.glue already exists
+2025-06-28 02:25:02,999 | INFO     | VPC endpoint for com.amazonaws.us-east-1.s3 already exists
+2025-06-28 02:25:02,999 | INFO     | Step 5: Initializing database tables...
+2025-06-28 02:25:02,999 | INFO     | Initializing database tables...
+2025-06-28 02:25:03,000 | INFO     | Waiting for Aurora instance to be fully available...
+2025-06-28 02:25:13,000 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 1/3)
+2025-06-28 02:25:43,035 | WARNING  | Error initializing database tables (attempt 1/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' (timed out)")
+2025-06-28 02:25:43,035 | INFO     | Retrying in 5 seconds...
+2025-06-28 02:25:48,039 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 2/3)
+2025-06-28 02:26:18,073 | WARNING  | Error initializing database tables (attempt 2/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' (timed out)")
+2025-06-28 02:26:18,073 | INFO     | Retrying in 10 seconds...
+2025-06-28 02:26:28,075 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 3/3)
+2025-06-28 02:26:28,250 | INFO     | Creating customers table...
+2025-06-28 02:26:28,324 | INFO     | Inserting sample data into customers table
+2025-06-28 02:26:28,380 | INFO     | Inserted 5 sample records into customers table
+2025-06-28 02:26:28,406 | INFO     | Verified table access: True
+2025-06-28 02:26:28,406 | INFO     | Database tables initialized successfully
+2025-06-28 02:26:28,406 | INFO     | Step 6: Setting up IAM role...
+2025-06-28 02:26:28,578 | INFO     | IAM Role ARN: arn:aws:iam::758045074543:role/GlueServiceRole
+2025-06-28 02:26:28,578 | INFO     | Step 7: Setting up AWS Glue...
+2025-06-28 02:26:29,298 | INFO     | Found Aurora VPC ID: vpc-0f15c04318b40a676
+2025-06-28 02:26:29,511 | INFO     | Glue connection aurora-mysql-connection exists
+2025-06-28 02:26:29,511 | INFO     | Updating Glue connection with correct endpoint and explicit database name: jdbc:mysql://aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com:3306/sampledb?databaseName=sampledb
+2025-06-28 02:26:29,650 | INFO     | Skipping connection test as TestConnection is only supported for Unified Connections
+2025-06-28 02:26:29,826 | INFO     | Starting crawler aurora-mysql-crawler...
+2025-06-28 02:26:30,498 | INFO     | Status = RUNNING
+2025-06-28 02:29:12,959 | INFO     | Loading configuration …
+2025-06-28 02:29:12,961 | INFO     | Creating boto3 session using access keys
+2025-06-28 02:29:13,472 | INFO     | Starting Aurora-Athena ETL Pipeline
+2025-06-28 02:29:13,472 | INFO     | Step 1: Setting up Aurora database...
+2025-06-28 02:29:13,702 | INFO     | Aurora cluster exists.
+2025-06-28 02:29:13,852 | INFO     | Aurora endpoint: aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com
+2025-06-28 02:29:13,852 | INFO     | Step 2: Getting network configuration...
+2025-06-28 02:29:14,095 | INFO     | VPC ID: vpc-0f15c04318b40a676, Subnet ID: subnet-0553f25524068da63, Security Group ID: sg-037b5747a16125191
+2025-06-28 02:29:14,095 | INFO     | Step 3: Configuring security group access...
+2025-06-28 02:29:14,165 | INFO     | Security group sg-037b5747a16125191 already has MySQL access rule
+2025-06-28 02:29:14,165 | INFO     | Step 4: Setting up VPC endpoints...
+2025-06-28 02:29:14,165 | INFO     | Setting up VPC endpoints for AWS Glue connectivity...
+2025-06-28 02:29:14,273 | INFO     | VPC endpoint for com.amazonaws.us-east-1.glue already exists
+2025-06-28 02:29:14,273 | INFO     | VPC endpoint for com.amazonaws.us-east-1.s3 already exists
+2025-06-28 02:29:14,273 | INFO     | Step 5: Initializing database tables...
+2025-06-28 02:29:14,273 | INFO     | Initializing database tables...
+2025-06-28 02:29:14,273 | INFO     | Waiting for Aurora instance to be fully available...
+2025-06-28 02:29:24,275 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 1/3)
+2025-06-28 02:29:24,481 | INFO     | Customers table already contains 5 records
+2025-06-28 02:29:24,512 | INFO     | Verified table access: True
+2025-06-28 02:29:24,512 | INFO     | Database tables initialized successfully
+2025-06-28 02:29:24,512 | INFO     | Step 6: Setting up IAM role...
+2025-06-28 02:29:24,663 | INFO     | IAM Role ARN: arn:aws:iam::758045074543:role/GlueServiceRole
+2025-06-28 02:29:24,664 | INFO     | Step 7: Setting up AWS Glue...
+2025-06-28 02:29:25,132 | INFO     | Found Aurora VPC ID: vpc-0f15c04318b40a676
+2025-06-28 02:29:25,306 | INFO     | Glue connection aurora-mysql-connection exists
+2025-06-28 02:29:25,306 | INFO     | Updating Glue connection with correct endpoint and explicit database name: jdbc:mysql://aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com:3306/sampledb?databaseName=sampledb
+2025-06-28 02:29:25,446 | INFO     | Skipping connection test as TestConnection is only supported for Unified Connections
+2025-06-28 02:29:25,617 | INFO     | Starting crawler aurora-mysql-crawler...
+2025-06-28 02:29:37,058 | INFO     | Status = RUNNING
+2025-06-28 02:30:07,160 | INFO     | Status = STOPPING
+2025-06-28 02:30:37,266 | INFO     | Status = STOPPING
+2025-06-28 02:31:07,649 | INFO     | Status = READY
+2025-06-28 02:31:07,651 | INFO     | Waiting 30 seconds for Glue catalog to update completely...
+2025-06-28 02:31:37,779 | INFO     | Database 'aurora_catalog' not found in catalog. Creating it...
+2025-06-28 02:31:37,965 | INFO     | Created database 'aurora_catalog' in the catalog
+2025-06-28 02:31:37,966 | INFO     | Starting crawler again to populate the new database...
+2025-06-28 02:31:49,545 | INFO     | Status = RUNNING
+2025-06-28 02:32:19,634 | INFO     | Status = STOPPING
+2025-06-28 02:32:49,726 | INFO     | Status = STOPPING
+2025-06-28 02:33:19,825 | INFO     | Status = STOPPING
+2025-06-28 02:33:49,940 | INFO     | Status = READY
+2025-06-28 02:33:49,940 | INFO     | Waiting 30 seconds for catalog to update after crawler run...
+2025-06-28 02:34:20,045 | INFO     | Found 0 tables in database 'aurora_catalog'
+2025-06-28 02:34:20,046 | WARNING  | No tables found in database 'aurora_catalog'
+2025-06-28 02:34:20,046 | WARNING  | Will attempt to use original table name 'aurora_customers' but job may fail
+2025-06-28 02:34:20,493 | INFO     | Uploaded ETL script → s3://aws-glue-scripts-758045074543-us-east-1/admin/aurora-to-s3-etl.py
+2025-06-28 02:34:20,685 | INFO     | Creating Glue job aurora-to-s3-etl
+2025-06-28 02:34:21,032 | INFO     | Status = RUNNING
+2025-06-28 02:34:51,140 | INFO     | Status = RUNNING
+2025-06-28 02:35:21,243 | INFO     | Status = RUNNING
+2025-06-28 02:35:51,326 | INFO     | Status = SUCCEEDED
+2025-06-28 02:35:51,328 | INFO     | Step 8: Waiting for resources to stabilize...
+2025-06-28 02:36:01,334 | INFO     | Step 9: Setting up Athena...
+2025-06-28 02:36:01,601 | INFO     | Status = QUEUED
+2025-06-28 02:36:32,722 | INFO     | Status = SUCCEEDED
+2025-06-28 02:36:32,839 | INFO     | Status = QUEUED
+2025-06-28 02:37:03,138 | INFO     | Status = SUCCEEDED
+2025-06-28 02:37:03,371 | INFO     | Status = QUEUED
+2025-06-28 02:37:33,502 | INFO     | Status = SUCCEEDED
+2025-06-28 02:37:33,502 | INFO     | Athena ready.
+2025-06-28 02:37:33,502 | INFO     | Aurora-Athena ETL Pipeline setup completed successfully
+2025-06-28 02:37:33,502 | INFO     | Step 10: Verifying end-to-end connectivity...
+2025-06-28 02:37:33,502 | INFO     | Verifying Aurora database connectivity...
+2025-06-28 02:37:33,710 | INFO     | Successfully connected to Aurora. Available tables: ['customers']
+2025-06-28 02:37:33,751 | INFO     | Customers table exists with 5 records
+2025-06-28 02:37:33,751 | INFO     | Verifying Glue connection...
+2025-06-28 02:37:33,974 | INFO     | Glue connection aurora-mysql-connection exists
+2025-06-28 02:37:33,974 | INFO     | Verifying S3 bucket...
+2025-06-28 02:37:34,096 | INFO     | S3 bucket glue-target-bucket-758045074543 exists and is accessible
+2025-06-28 02:37:34,097 | INFO     | End-to-end connectivity verification completed
+2025-06-28 04:25:14,000 | INFO     | Loading configuration …
+2025-06-28 04:25:14,004 | INFO     | Creating boto3 session using access keys
+2025-06-28 04:25:14,625 | INFO     | Starting Aurora-Athena ETL Pipeline
+2025-06-28 04:25:14,625 | INFO     | Step 1: Setting up Aurora database...
+2025-06-28 04:25:14,816 | INFO     | Creating Aurora cluster …
+2025-06-28 04:25:15,273 | INFO     | Primary subnet subnet-0553f25524068da63 in VPC vpc-0f15c04318b40a676 (AZ: us-east-1a)
+2025-06-28 04:25:15,273 | INFO     | Finding additional subnets in VPC vpc-0f15c04318b40a676 for multi-AZ coverage...
+2025-06-28 04:25:15,396 | INFO     | Adding subnet subnet-02c7622531effa24f from AZ us-east-1b
+2025-06-28 04:25:15,397 | INFO     | Using subnets from 2 AZs: us-east-1a, us-east-1b
+2025-06-28 04:25:15,397 | INFO     | Checking if DB subnet group 'aurora-subnet-group' exists...
+2025-06-28 04:25:15,469 | INFO     | Creating DB subnet group 'aurora-subnet-group'...
+2025-06-28 04:25:16,150 | INFO     | DB subnet group 'aurora-subnet-group' created successfully with subnets in 2 AZs
+2025-06-28 04:27:49,656 | INFO     | Aurora ready → aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com
+2025-06-28 04:27:49,656 | INFO     | Creating sample schema …
+2025-06-28 04:27:49,656 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 1/3)
+2025-06-28 04:27:49,676 | WARNING  | Error initializing database tables (attempt 1/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' ([Errno 8] nodename nor servname provided, or not known)")
+2025-06-28 04:27:49,677 | INFO     | Retrying in 5 seconds...
+2025-06-28 04:27:54,681 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 2/3)
+2025-06-28 04:27:54,683 | WARNING  | Error initializing database tables (attempt 2/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' ([Errno 8] nodename nor servname provided, or not known)")
+2025-06-28 04:27:54,684 | INFO     | Retrying in 10 seconds...
+2025-06-28 04:28:04,687 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 3/3)
+2025-06-28 04:28:04,689 | WARNING  | Error initializing database tables (attempt 3/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' ([Errno 8] nodename nor servname provided, or not known)")
+2025-06-28 04:28:04,689 | ERROR    | Failed to initialize database tables after multiple attempts
+2025-06-28 04:28:04,689 | INFO     | Schema setup skipped - continuing with pipeline
+2025-06-28 04:28:04,689 | INFO     | Aurora endpoint: aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com
+2025-06-28 04:28:04,689 | INFO     | Step 2: Getting network configuration...
+2025-06-28 04:28:05,214 | INFO     | VPC ID: vpc-0f15c04318b40a676, Subnet ID: subnet-0553f25524068da63, Security Group ID: sg-037b5747a16125191
+2025-06-28 04:28:05,215 | INFO     | Step 3: Configuring security group access...
+2025-06-28 04:28:05,308 | INFO     | Security group sg-037b5747a16125191 already has MySQL access rule
+2025-06-28 04:28:05,309 | INFO     | Step 4: Setting up VPC endpoints...
+2025-06-28 04:28:05,309 | INFO     | Setting up VPC endpoints for AWS Glue connectivity...
+2025-06-28 04:28:05,445 | INFO     | VPC endpoint for com.amazonaws.us-east-1.glue already exists
+2025-06-28 04:28:05,445 | INFO     | VPC endpoint for com.amazonaws.us-east-1.s3 already exists
+2025-06-28 04:28:05,445 | INFO     | Step 5: Initializing database tables...
+2025-06-28 04:28:05,445 | INFO     | Initializing database tables...
+2025-06-28 04:28:05,446 | INFO     | Waiting for Aurora instance to be fully available...
+2025-06-28 04:28:15,451 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 1/3)
+2025-06-28 04:28:15,453 | WARNING  | Error initializing database tables (attempt 1/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' ([Errno 8] nodename nor servname provided, or not known)")
+2025-06-28 04:28:15,453 | INFO     | Retrying in 5 seconds...
+2025-06-28 04:28:20,458 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 2/3)
+2025-06-28 04:28:20,460 | WARNING  | Error initializing database tables (attempt 2/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' ([Errno 8] nodename nor servname provided, or not known)")
+2025-06-28 04:28:20,460 | INFO     | Retrying in 10 seconds...
+2025-06-28 04:28:30,464 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 3/3)
+2025-06-28 04:28:30,466 | WARNING  | Error initializing database tables (attempt 3/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' ([Errno 8] nodename nor servname provided, or not known)")
+2025-06-28 04:28:30,466 | ERROR    | Failed to initialize database tables after multiple attempts
+2025-06-28 04:28:30,466 | INFO     | Step 6: Setting up IAM role...
+2025-06-28 04:28:30,617 | INFO     | Creating IAM role GlueServiceRole
+2025-06-28 04:28:41,178 | INFO     | IAM Role ARN: arn:aws:iam::758045074543:role/GlueServiceRole
+2025-06-28 04:28:41,179 | INFO     | Step 7: Setting up AWS Glue...
+2025-06-28 04:28:41,627 | INFO     | Found Aurora VPC ID: vpc-0f15c04318b40a676
+2025-06-28 04:28:41,835 | INFO     | Creating Glue connection aurora-mysql-connection
+2025-06-28 04:28:42,038 | INFO     | Creating crawler aurora-mysql-crawler
+2025-06-28 04:28:42,474 | INFO     | Starting crawler aurora-mysql-crawler...
+2025-06-28 04:28:44,279 | INFO     | Status = RUNNING
+2025-06-28 04:29:14,381 | INFO     | Status = STOPPING
+2025-06-28 04:29:44,493 | INFO     | Status = STOPPING
+2025-06-28 04:30:14,595 | INFO     | Status = STOPPING
+2025-06-28 04:30:44,692 | INFO     | Status = READY
+2025-06-28 04:30:44,693 | INFO     | Waiting 30 seconds for Glue catalog to update completely...
+2025-06-28 04:31:14,806 | INFO     | Database 'aurora_catalog' not found in catalog. Creating it...
+2025-06-28 04:31:14,959 | INFO     | Created database 'aurora_catalog' in the catalog
+2025-06-28 04:31:14,959 | INFO     | Starting crawler again to populate the new database...
+2025-06-28 04:31:26,475 | INFO     | Status = RUNNING
+2025-06-28 04:31:56,580 | INFO     | Status = STOPPING
+2025-06-28 04:32:26,676 | INFO     | Status = STOPPING
+2025-06-28 04:32:56,753 | INFO     | Status = STOPPING
+2025-06-28 04:33:26,841 | INFO     | Status = READY
+2025-06-28 04:33:26,842 | INFO     | Waiting 30 seconds for catalog to update after crawler run...
+2025-06-28 04:33:56,967 | INFO     | Found 0 tables in database 'aurora_catalog'
+2025-06-28 04:33:56,968 | WARNING  | No tables found in database 'aurora_catalog'
+2025-06-28 04:33:56,969 | WARNING  | Will attempt to use original table name 'aurora_customers' but job may fail
+2025-06-28 04:33:57,440 | INFO     | Uploaded ETL script → s3://aws-glue-scripts-758045074543-us-east-1/admin/aurora-to-s3-etl.py
+2025-06-28 04:33:57,683 | INFO     | Creating Glue job aurora-to-s3-etl
+2025-06-28 04:33:58,024 | INFO     | Status = RUNNING
+2025-06-28 04:34:29,107 | INFO     | Status = RUNNING
+2025-06-28 04:34:59,203 | INFO     | Status = RUNNING
+2025-06-28 04:35:29,307 | INFO     | Status = RUNNING
+2025-06-28 04:35:59,472 | INFO     | Status = RUNNING
+2025-06-28 04:36:29,580 | INFO     | Status = RUNNING
+2025-06-28 04:36:59,684 | INFO     | Status = RUNNING
+2025-06-28 04:37:29,793 | INFO     | Status = RUNNING
+2025-06-28 04:37:59,883 | INFO     | Status = RUNNING
+2025-06-28 04:38:29,975 | INFO     | Status = RUNNING
+2025-06-28 04:39:00,064 | INFO     | Status = RUNNING
+2025-06-28 04:39:30,165 | INFO     | Status = RUNNING
+2025-06-28 04:40:00,269 | INFO     | Status = RUNNING
+2025-06-28 04:40:30,367 | INFO     | Status = RUNNING
+2025-06-28 04:41:00,536 | INFO     | Status = RUNNING
+2025-06-28 04:41:30,639 | INFO     | Status = RUNNING
+2025-06-28 04:42:00,717 | INFO     | Status = FAILED
+2025-06-28 04:42:00,794 | ERROR    | Glue job failed: An error occurred while calling o113.load. Communications link failure
+2025-06-28 04:42:00,794 | ERROR    | Error in ETL pipeline: Process ended with state FAILED
+2025-06-28 04:42:00,802 | ERROR    | Traceback (most recent call last):
+  File "/Users/mattforbush/Projects/AWS-DE_Academy/Aurora-Athena_Using_Glue/bin/dev/aurora_athena_etl_pipeline.py", line 1134, in run
+    self.setup_glue(role_arn, aurora_endpoint)
+  File "/Users/mattforbush/Projects/AWS-DE_Academy/Aurora-Athena_Using_Glue/bin/dev/aurora_athena_etl_pipeline.py", line 594, in setup_glue
+    raise err
+  File "/Users/mattforbush/Projects/AWS-DE_Academy/Aurora-Athena_Using_Glue/bin/dev/aurora_athena_etl_pipeline.py", line 590, in setup_glue
+    self._poll(lambda: glue.get_job_run(JobName=job_n, RunId=run_id)["JobRun"], "JobRunState", "SUCCEEDED", ["FAILED", "TIMEOUT", "STOPPED"])
+  File "/Users/mattforbush/Projects/AWS-DE_Academy/Aurora-Athena_Using_Glue/bin/dev/aurora_athena_etl_pipeline.py", line 154, in _poll
+    raise RuntimeError(f"Process ended with state {status}")
+RuntimeError: Process ended with state FAILED
+
+2025-06-28 04:58:06,432 | INFO     | Loading configuration …
+2025-06-28 04:58:06,435 | INFO     | Creating boto3 session using access keys
+2025-06-28 04:58:07,080 | INFO     | Starting Aurora-Athena ETL Pipeline
+2025-06-28 04:58:07,081 | INFO     | Step 1: Setting up Aurora database...
+2025-06-28 04:58:07,404 | INFO     | Aurora cluster exists.
+2025-06-28 04:58:07,551 | INFO     | Making Aurora instance aurora-mysql-cluster-instance-1 publicly accessible...
+2025-06-28 04:58:08,125 | INFO     | Waiting for Aurora instance aurora-mysql-cluster-instance-1 to become available...
+2025-06-28 04:58:08,323 | INFO     | Aurora instance aurora-mysql-cluster-instance-1 is now publicly accessible
+2025-06-28 04:58:08,323 | INFO     | Aurora endpoint: aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com
+2025-06-28 04:58:08,323 | INFO     | Step 2: Getting network configuration...
+2025-06-28 04:58:08,546 | INFO     | VPC ID: vpc-0f15c04318b40a676, Subnet ID: subnet-0553f25524068da63, Security Group ID: sg-037b5747a16125191
+2025-06-28 04:58:08,546 | INFO     | Step 3: Configuring security group access...
+2025-06-28 04:58:08,636 | INFO     | Security group sg-037b5747a16125191 already has MySQL access rule
+2025-06-28 04:58:08,637 | INFO     | Step 4: Setting up VPC endpoints...
+2025-06-28 04:58:08,637 | INFO     | Setting up VPC endpoints for AWS Glue connectivity...
+2025-06-28 04:58:08,751 | INFO     | VPC endpoint for com.amazonaws.us-east-1.glue already exists
+2025-06-28 04:58:08,752 | INFO     | VPC endpoint for com.amazonaws.us-east-1.s3 already exists
+2025-06-28 04:58:08,752 | INFO     | Step 5: Initializing database tables...
+2025-06-28 04:58:08,752 | INFO     | Initializing database tables...
+2025-06-28 04:58:08,752 | INFO     | Waiting for Aurora instance to be fully available...
+2025-06-28 04:58:18,751 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 1/3)
+2025-06-28 04:58:48,771 | WARNING  | Error initializing database tables (attempt 1/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' (timed out)")
+2025-06-28 04:58:48,771 | INFO     | Retrying in 5 seconds...
+2025-06-28 04:58:53,776 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 2/3)
+2025-06-28 04:59:23,802 | WARNING  | Error initializing database tables (attempt 2/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' (timed out)")
+2025-06-28 04:59:23,803 | INFO     | Retrying in 10 seconds...
+2025-06-28 04:59:33,807 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 3/3)
+2025-06-28 04:59:34,013 | INFO     | Creating customers table...
+2025-06-28 04:59:34,076 | INFO     | Inserting sample data into customers table
+2025-06-28 04:59:34,125 | INFO     | Inserted 5 sample records into customers table
+2025-06-28 04:59:34,144 | INFO     | Verified table access: True
+2025-06-28 04:59:34,145 | INFO     | Database tables initialized successfully
+2025-06-28 04:59:34,145 | INFO     | Step 6: Setting up IAM role...
+2025-06-28 04:59:34,316 | INFO     | IAM Role ARN: arn:aws:iam::758045074543:role/GlueServiceRole
+2025-06-28 04:59:34,317 | INFO     | Step 7: Setting up AWS Glue...
+2025-06-28 04:59:35,119 | INFO     | Found Aurora VPC ID: vpc-0f15c04318b40a676
+2025-06-28 04:59:35,364 | INFO     | Glue connection aurora-mysql-connection exists
+2025-06-28 04:59:35,365 | INFO     | Updating Glue connection with correct endpoint and explicit database name: jdbc:mysql://aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com:3306/sampledb?databaseName=sampledb
+2025-06-28 04:59:35,502 | INFO     | Skipping connection test as TestConnection is only supported for Unified Connections
+2025-06-28 04:59:35,707 | INFO     | Starting crawler aurora-mysql-crawler...
+2025-06-28 04:59:36,416 | INFO     | Status = RUNNING
+2025-06-28 05:00:06,513 | INFO     | Status = STOPPING
+2025-06-28 05:00:36,623 | INFO     | Status = STOPPING
+2025-06-28 05:01:06,721 | INFO     | Status = STOPPING
+2025-06-28 05:01:36,825 | INFO     | Status = READY
+2025-06-28 05:01:36,826 | INFO     | Waiting 30 seconds for Glue catalog to update completely...
+2025-06-28 05:02:06,982 | INFO     | Database 'aurora_catalog' exists in the catalog
+2025-06-28 05:02:07,100 | INFO     | Found 0 tables in database 'aurora_catalog'
+2025-06-28 05:02:07,101 | WARNING  | No tables found in database 'aurora_catalog'
+2025-06-28 05:02:07,101 | WARNING  | Will attempt to use original table name 'aurora_customers' but job may fail
+2025-06-28 05:02:07,501 | INFO     | Uploaded ETL script → s3://aws-glue-scripts-758045074543-us-east-1/admin/aurora-to-s3-etl.py
+2025-06-28 05:02:07,804 | INFO     | Updated Glue job aurora-to-s3-etl with JDBC connection parameters
+2025-06-28 05:02:08,101 | INFO     | Status = RUNNING
+2025-06-28 05:02:38,208 | INFO     | Status = RUNNING
+2025-06-28 05:03:08,310 | INFO     | Status = RUNNING
+2025-06-28 05:03:38,394 | INFO     | Status = SUCCEEDED
+2025-06-28 05:03:38,394 | INFO     | Step 8: Waiting for resources to stabilize...
+2025-06-28 05:03:48,398 | INFO     | Step 9: Setting up Athena...
+2025-06-28 05:03:48,679 | INFO     | Status = QUEUED
+2025-06-28 05:04:18,938 | INFO     | Status = SUCCEEDED
+2025-06-28 05:04:19,098 | INFO     | Status = QUEUED
+2025-06-28 05:04:49,216 | INFO     | Status = SUCCEEDED
+2025-06-28 05:04:49,460 | INFO     | Status = QUEUED
+2025-06-28 05:05:20,581 | INFO     | Status = SUCCEEDED
+2025-06-28 05:05:20,582 | INFO     | Athena ready.
+2025-06-28 05:05:20,582 | INFO     | Aurora-Athena ETL Pipeline setup completed successfully
+2025-06-28 05:05:20,582 | INFO     | Step 10: Verifying end-to-end connectivity...
+2025-06-28 05:05:20,582 | INFO     | Verifying Aurora database connectivity...
+2025-06-28 05:05:20,789 | INFO     | Successfully connected to Aurora. Available tables: ['customers']
+2025-06-28 05:05:20,838 | INFO     | Customers table exists with 5 records
+2025-06-28 05:05:20,839 | INFO     | Verifying Glue connection...
+2025-06-28 05:05:21,027 | INFO     | Glue connection aurora-mysql-connection exists
+2025-06-28 05:05:21,028 | INFO     | Verifying S3 bucket...
+2025-06-28 05:05:21,167 | INFO     | S3 bucket glue-target-bucket-758045074543 exists and is accessible
+2025-06-28 05:05:21,167 | INFO     | End-to-end connectivity verification completed
+2025-06-29 07:37:38,942 | INFO     | Loading configuration …
+2025-06-29 07:37:38,945 | INFO     | Creating boto3 session using access keys
+2025-06-29 07:37:39,943 | INFO     | Starting Aurora-Athena ETL Pipeline
+2025-06-29 07:37:39,943 | INFO     | Step 1: Setting up Aurora database...
+2025-06-29 07:37:40,154 | INFO     | Creating Aurora cluster …
+2025-06-29 07:37:40,779 | INFO     | Primary subnet subnet-0553f25524068da63 in VPC vpc-0f15c04318b40a676 (AZ: us-east-1a)
+2025-06-29 07:37:40,779 | INFO     | Finding additional subnets in VPC vpc-0f15c04318b40a676 for multi-AZ coverage...
+2025-06-29 07:37:40,903 | INFO     | Adding subnet subnet-02c7622531effa24f from AZ us-east-1b
+2025-06-29 07:37:40,903 | INFO     | Using subnets from 2 AZs: us-east-1b, us-east-1a
+2025-06-29 07:37:40,904 | INFO     | Checking if DB subnet group 'aurora-subnet-group' exists...
+2025-06-29 07:37:40,969 | INFO     | Creating DB subnet group 'aurora-subnet-group'...
+2025-06-29 07:37:41,704 | INFO     | DB subnet group 'aurora-subnet-group' created successfully with subnets in 2 AZs
+2025-06-29 07:38:44,866 | INFO     | Aurora ready → aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com
+2025-06-29 07:38:44,867 | INFO     | Creating employee database schema...
+2025-06-29 07:38:44,867 | ERROR    | Required file not found: /Users/mattforbush/Projects/AWS-DE_Academy/Aurora-Athena_Using_Glue/data/test_db/employees.sql
+2025-06-29 07:38:44,868 | INFO     | Aurora endpoint: aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com
+2025-06-29 07:38:44,868 | INFO     | Step 2: Getting network configuration...
+2025-06-29 07:38:44,968 | INFO     | VPC ID: vpc-0f15c04318b40a676, Subnet ID: subnet-0553f25524068da63, Security Group ID: sg-037b5747a16125191
+2025-06-29 07:38:44,969 | INFO     | Step 3: Configuring security group access...
+2025-06-29 07:38:45,036 | INFO     | Security group sg-037b5747a16125191 already has MySQL access rule
+2025-06-29 07:38:45,036 | INFO     | Step 4: Setting up VPC endpoints...
+2025-06-29 07:38:45,036 | INFO     | Setting up VPC endpoints for AWS Glue connectivity...
+2025-06-29 07:38:45,154 | INFO     | VPC endpoint for com.amazonaws.us-east-1.glue already exists
+2025-06-29 07:38:45,155 | INFO     | VPC endpoint for com.amazonaws.us-east-1.s3 already exists
+2025-06-29 07:38:45,155 | INFO     | Step 5: Initializing database tables...
+2025-06-29 07:38:45,155 | INFO     | Initializing database tables...
+2025-06-29 07:38:45,155 | INFO     | Waiting for Aurora instance to be fully available...
+2025-06-29 07:38:55,158 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 1/3)
+2025-06-29 07:38:55,186 | WARNING  | Error initializing database tables (attempt 1/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' ([Errno 8] nodename nor servname provided, or not known)")
+2025-06-29 07:38:55,186 | INFO     | Retrying in 5 seconds...
+2025-06-29 07:39:00,189 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 2/3)
+2025-06-29 07:39:00,192 | WARNING  | Error initializing database tables (attempt 2/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' ([Errno 8] nodename nor servname provided, or not known)")
+2025-06-29 07:39:00,192 | INFO     | Retrying in 10 seconds...
+2025-06-29 07:39:10,195 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 3/3)
+2025-06-29 07:39:10,197 | WARNING  | Error initializing database tables (attempt 3/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' ([Errno 8] nodename nor servname provided, or not known)")
+2025-06-29 07:39:10,197 | ERROR    | Failed to initialize database tables after multiple attempts
+2025-06-29 07:39:10,197 | INFO     | Step 6: Setting up IAM role...
+2025-06-29 07:39:10,371 | INFO     | Creating IAM role GlueServiceRole
+2025-06-29 07:39:20,956 | INFO     | IAM Role ARN: arn:aws:iam::758045074543:role/GlueServiceRole
+2025-06-29 07:39:20,956 | INFO     | Step 7: Setting up AWS Glue...
+2025-06-29 07:50:21,142 | INFO     | Loading configuration …
+2025-06-29 07:50:21,145 | INFO     | Creating boto3 session using access keys
+2025-06-29 07:50:21,836 | INFO     | Starting Aurora-Athena ETL Pipeline
+2025-06-29 07:50:21,837 | INFO     | Step 1: Setting up Aurora database...
+2025-06-29 07:50:22,367 | INFO     | Aurora cluster exists.
+2025-06-29 07:50:22,518 | INFO     | Making Aurora instance aurora-mysql-cluster-instance-1 publicly accessible...
+2025-06-29 07:50:23,091 | INFO     | Waiting for Aurora instance aurora-mysql-cluster-instance-1 to become available...
+2025-06-29 07:50:23,292 | INFO     | Aurora instance aurora-mysql-cluster-instance-1 is now publicly accessible
+2025-06-29 07:50:23,292 | INFO     | Aurora endpoint: aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com
+2025-06-29 07:50:23,292 | INFO     | Step 2: Getting network configuration...
+2025-06-29 07:50:23,574 | INFO     | VPC ID: vpc-0f15c04318b40a676, Subnet ID: subnet-0553f25524068da63, Security Group ID: sg-037b5747a16125191
+2025-06-29 07:50:23,574 | INFO     | Step 3: Configuring security group access...
+2025-06-29 07:50:23,693 | INFO     | Security group sg-037b5747a16125191 already has MySQL access rule
+2025-06-29 07:50:23,693 | INFO     | Step 4: Setting up VPC endpoints...
+2025-06-29 07:50:23,694 | INFO     | Setting up VPC endpoints for AWS Glue connectivity...
+2025-06-29 07:50:23,802 | INFO     | VPC endpoint for com.amazonaws.us-east-1.glue already exists
+2025-06-29 07:50:23,803 | INFO     | VPC endpoint for com.amazonaws.us-east-1.s3 already exists
+2025-06-29 07:50:23,803 | INFO     | Step 5: Initializing database tables...
+2025-06-29 07:50:23,803 | INFO     | Initializing database tables...
+2025-06-29 07:50:23,803 | INFO     | Waiting for Aurora instance to be fully available...
+2025-06-29 07:50:33,808 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 1/3)
+2025-06-29 07:51:03,842 | WARNING  | Error initializing database tables (attempt 1/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' (timed out)")
+2025-06-29 07:51:03,842 | INFO     | Retrying in 5 seconds...
+2025-06-29 07:51:08,846 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 2/3)
+2025-06-29 07:51:38,877 | WARNING  | Error initializing database tables (attempt 2/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' (timed out)")
+2025-06-29 07:51:38,878 | INFO     | Retrying in 10 seconds...
+2025-06-29 07:51:48,882 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 3/3)
+2025-06-29 07:54:52,239 | INFO     | Loading configuration …
+2025-06-29 07:54:52,242 | INFO     | Creating boto3 session using access keys
+2025-06-29 07:54:53,041 | INFO     | Starting Aurora-Athena ETL Pipeline
+2025-06-29 07:54:53,041 | INFO     | Step 1: Setting up Aurora database...
+2025-06-29 07:54:53,334 | INFO     | Aurora cluster exists.
+2025-06-29 07:54:53,481 | INFO     | Aurora endpoint: aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com
+2025-06-29 07:54:53,481 | INFO     | Step 2: Getting network configuration...
+2025-06-29 07:54:53,730 | INFO     | VPC ID: vpc-0f15c04318b40a676, Subnet ID: subnet-0553f25524068da63, Security Group ID: sg-037b5747a16125191
+2025-06-29 07:54:53,731 | INFO     | Step 3: Configuring security group access...
+2025-06-29 07:54:53,825 | INFO     | Security group sg-037b5747a16125191 already has MySQL access rule
+2025-06-29 07:54:53,825 | INFO     | Step 4: Setting up VPC endpoints...
+2025-06-29 07:54:53,825 | INFO     | Setting up VPC endpoints for AWS Glue connectivity...
+2025-06-29 07:54:53,961 | INFO     | VPC endpoint for com.amazonaws.us-east-1.glue already exists
+2025-06-29 07:54:53,961 | INFO     | VPC endpoint for com.amazonaws.us-east-1.s3 already exists
+2025-06-29 07:54:53,961 | INFO     | Step 5: Initializing database tables...
+2025-06-29 07:54:53,961 | INFO     | Initializing database tables...
+2025-06-29 07:54:53,962 | INFO     | Waiting for Aurora instance to be fully available...
+2025-06-29 07:55:03,967 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 1/3)
+2025-06-29 07:55:04,167 | INFO     | Creating customers table...
+2025-06-29 07:55:04,259 | INFO     | Inserting sample data into customers table
+2025-06-29 07:55:04,323 | INFO     | Inserted 5 sample records into customers table
+2025-06-29 07:55:04,350 | INFO     | Verified table access: True
+2025-06-29 07:55:04,350 | INFO     | Database tables initialized successfully
+2025-06-29 07:55:04,350 | INFO     | Step 6: Setting up IAM role...
+2025-06-29 07:55:04,502 | INFO     | IAM Role ARN: arn:aws:iam::758045074543:role/GlueServiceRole
+2025-06-29 07:55:04,502 | INFO     | Step 7: Setting up AWS Glue...
+2025-06-29 07:55:04,965 | INFO     | Found Aurora VPC ID: vpc-0f15c04318b40a676
+2025-06-29 07:55:05,179 | INFO     | Creating Glue connection aurora-mysql-connection
+2025-06-29 07:55:05,395 | INFO     | Creating crawler aurora-mysql-crawler
+2025-06-29 07:55:05,895 | INFO     | Starting crawler aurora-mysql-crawler...
+2025-06-29 07:55:17,335 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: RUNNING
+2025-06-29 07:55:47,427 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: STOPPING
+2025-06-29 07:56:17,578 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: STOPPING
+2025-06-29 07:56:47,684 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: READY
+2025-06-29 07:56:47,684 | INFO     | Glue Crawler 'aurora-mysql-crawler' completed successfully
+2025-06-29 07:56:47,684 | INFO     | Waiting 30 seconds for Glue catalog to update completely...
+2025-06-29 07:57:17,806 | INFO     | Database 'aurora_catalog' not found in catalog. Creating it...
+2025-06-29 07:57:17,979 | INFO     | Created database 'aurora_catalog' in the catalog
+2025-06-29 07:57:17,980 | INFO     | Starting crawler again to populate the new database...
+2025-06-29 07:57:28,710 | INFO     | Glue Crawler 'aurora-mysql-crawler' (database population) status: RUNNING
+2025-06-29 07:57:58,801 | INFO     | Glue Crawler 'aurora-mysql-crawler' (database population) status: STOPPING
+2025-06-29 07:58:28,906 | INFO     | Glue Crawler 'aurora-mysql-crawler' (database population) status: STOPPING
+2025-06-29 07:58:59,027 | INFO     | Glue Crawler 'aurora-mysql-crawler' (database population) status: STOPPING
+2025-06-29 07:59:29,146 | INFO     | Glue Crawler 'aurora-mysql-crawler' (database population) status: READY
+2025-06-29 07:59:29,147 | INFO     | Glue Crawler 'aurora-mysql-crawler' (database population) completed successfully
+2025-06-29 07:59:29,147 | INFO     | Waiting 30 seconds for catalog to update after crawler run...
+2025-06-29 07:59:59,262 | INFO     | Found 0 tables in database 'aurora_catalog'
+2025-06-29 07:59:59,262 | WARNING  | No tables found in database 'aurora_catalog'
+2025-06-29 07:59:59,263 | WARNING  | Will attempt to use original table name 'aurora_customers' but job may fail
+2025-06-29 07:59:59,697 | INFO     | Uploaded ETL script → s3://aws-glue-scripts-758045074543-us-east-1/admin/aurora-to-s3-etl.py
+2025-06-29 07:59:59,937 | INFO     | Creating Glue job aurora-to-s3-etl
+2025-06-29 08:00:00,292 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: RUNNING
+2025-06-29 08:00:30,401 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: RUNNING
+2025-06-29 08:01:00,500 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: RUNNING
+2025-06-29 08:01:30,609 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: RUNNING
+2025-06-29 08:02:00,682 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: SUCCEEDED
+2025-06-29 08:02:00,682 | INFO     | Glue ETL Job 'aurora-to-s3-etl' completed successfully
+2025-06-29 08:02:00,682 | INFO     | Step 8: Waiting for resources to stabilize...
+2025-06-29 08:02:10,683 | INFO     | Step 9: Setting up Athena...
+2025-06-29 08:02:10,959 | INFO     | Athena Query aca53299-c5c0-4234-89fb-652ba4e91368 status: QUEUED
+2025-06-29 08:02:41,960 | INFO     | Athena Query aca53299-c5c0-4234-89fb-652ba4e91368 status: SUCCEEDED
+2025-06-29 08:02:41,973 | INFO     | Athena Query aca53299-c5c0-4234-89fb-652ba4e91368 completed successfully
+2025-06-29 08:02:42,101 | INFO     | Athena Query 3d348eda-40cd-4dd9-8298-06549a43e2b8 status: QUEUED
+2025-06-29 08:03:12,313 | INFO     | Athena Query 3d348eda-40cd-4dd9-8298-06549a43e2b8 status: SUCCEEDED
+2025-06-29 08:03:12,314 | INFO     | Athena Query 3d348eda-40cd-4dd9-8298-06549a43e2b8 completed successfully
+2025-06-29 08:03:12,550 | INFO     | Athena Query bcb644fe-00e3-466a-9788-19b8cd7bebda status: QUEUED
+2025-06-29 08:03:42,662 | INFO     | Athena Query bcb644fe-00e3-466a-9788-19b8cd7bebda status: SUCCEEDED
+2025-06-29 08:03:42,662 | INFO     | Athena Query bcb644fe-00e3-466a-9788-19b8cd7bebda completed successfully
+2025-06-29 08:03:42,662 | INFO     | Athena ready.
+2025-06-29 08:03:42,662 | INFO     | Aurora-Athena ETL Pipeline setup completed successfully
+2025-06-29 08:03:42,662 | INFO     | Step 10: Verifying end-to-end connectivity...
+2025-06-29 08:03:42,663 | INFO     | Verifying Aurora database connectivity...
+2025-06-29 08:03:42,893 | INFO     | Successfully connected to Aurora. Available tables: ['customers']
+2025-06-29 08:03:42,936 | INFO     | Customers table exists with 5 records
+2025-06-29 08:03:42,936 | INFO     | Verifying Glue connection...
+2025-06-29 08:03:43,144 | INFO     | Glue connection aurora-mysql-connection exists
+2025-06-29 08:03:43,144 | INFO     | Verifying S3 bucket...
+2025-06-29 08:03:43,270 | INFO     | S3 bucket glue-target-bucket-758045074543 exists and is accessible
+2025-06-29 08:03:43,270 | INFO     | End-to-end connectivity verification completed
+2025-06-29 08:09:55,703 | INFO     | Loading configuration …
+2025-06-29 08:09:55,706 | INFO     | Creating boto3 session using access keys
+2025-06-29 08:09:56,590 | INFO     | Starting Aurora-Athena ETL Pipeline
+2025-06-29 08:09:56,590 | INFO     | Step 1: Setting up Aurora database...
+2025-06-29 08:09:56,974 | INFO     | Aurora cluster exists.
+2025-06-29 08:09:57,171 | INFO     | Aurora endpoint: aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com
+2025-06-29 08:09:57,171 | INFO     | Step 2: Getting network configuration...
+2025-06-29 08:09:57,473 | INFO     | VPC ID: vpc-0f15c04318b40a676, Subnet ID: subnet-0553f25524068da63, Security Group ID: sg-037b5747a16125191
+2025-06-29 08:09:57,473 | INFO     | Step 3: Configuring security group access...
+2025-06-29 08:09:57,575 | INFO     | Security group sg-037b5747a16125191 already has MySQL access rule
+2025-06-29 08:09:57,575 | INFO     | Step 4: Setting up VPC endpoints...
+2025-06-29 08:09:57,575 | INFO     | Setting up VPC endpoints for AWS Glue connectivity...
+2025-06-29 08:09:57,689 | INFO     | VPC endpoint for com.amazonaws.us-east-1.glue already exists
+2025-06-29 08:09:57,689 | INFO     | VPC endpoint for com.amazonaws.us-east-1.s3 already exists
+2025-06-29 08:09:57,689 | INFO     | Step 5: Initializing database tables...
+2025-06-29 08:09:57,689 | INFO     | Initializing database tables...
+2025-06-29 08:09:57,690 | INFO     | Waiting for Aurora instance to be fully available...
+2025-06-29 08:10:07,690 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 1/3)
+2025-06-29 08:10:07,876 | INFO     | Customers table already contains 5 records
+2025-06-29 08:10:07,898 | INFO     | Verified table access: True
+2025-06-29 08:10:07,899 | INFO     | Database tables initialized successfully
+2025-06-29 08:10:07,899 | INFO     | Step 6: Setting up IAM role...
+2025-06-29 08:10:08,052 | INFO     | IAM Role ARN: arn:aws:iam::758045074543:role/GlueServiceRole
+2025-06-29 08:10:08,054 | INFO     | Step 7: Setting up AWS Glue...
+2025-06-29 08:10:08,503 | INFO     | Found Aurora VPC ID: vpc-0f15c04318b40a676
+2025-06-29 08:10:08,688 | INFO     | Glue connection aurora-mysql-connection exists
+2025-06-29 08:10:08,689 | INFO     | Updating Glue connection with correct endpoint and explicit database name: jdbc:mysql://aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com:3306/sampledb?databaseName=sampledb
+2025-06-29 08:10:08,861 | INFO     | Skipping connection test as TestConnection is only supported for Unified Connections
+2025-06-29 08:10:09,045 | INFO     | Starting crawler aurora-mysql-crawler...
+2025-06-29 08:10:20,460 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: RUNNING
+2025-06-29 08:10:50,572 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: STOPPING
+2025-06-29 08:11:20,674 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: STOPPING
+2025-06-29 08:11:50,756 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: STOPPING
+2025-06-29 08:12:20,868 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: READY
+2025-06-29 08:12:20,869 | INFO     | Glue Crawler 'aurora-mysql-crawler' completed successfully
+2025-06-29 08:12:20,869 | INFO     | Waiting 30 seconds for Glue catalog to update completely...
+2025-06-29 08:12:50,990 | INFO     | Database 'aurora_catalog' exists in the catalog
+2025-06-29 08:12:51,093 | INFO     | Found 0 tables in database 'aurora_catalog'
+2025-06-29 08:12:51,093 | WARNING  | No tables found in database 'aurora_catalog'
+2025-06-29 08:12:51,093 | WARNING  | Will attempt to use original table name 'aurora_customers' but job may fail
+2025-06-29 08:12:51,536 | INFO     | Uploaded ETL script → s3://aws-glue-scripts-758045074543-us-east-1/admin/aurora-to-s3-etl.py
+2025-06-29 08:12:51,823 | INFO     | Updated Glue job aurora-to-s3-etl with JDBC connection parameters
+2025-06-29 08:12:52,067 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: RUNNING
+2025-06-29 08:13:22,391 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: RUNNING
+2025-06-29 08:13:52,485 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: RUNNING
+2025-06-29 08:14:22,562 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: SUCCEEDED
+2025-06-29 08:14:22,562 | INFO     | Glue ETL Job 'aurora-to-s3-etl' completed successfully
+2025-06-29 08:14:22,563 | INFO     | Step 8: Waiting for resources to stabilize...
+2025-06-29 08:14:32,564 | INFO     | Step 9: Setting up Athena...
+2025-06-29 08:14:32,872 | INFO     | Athena Query 10b957d9-db64-459a-80f6-927370a083f0 status: QUEUED
+2025-06-29 08:15:03,186 | INFO     | Athena Query 10b957d9-db64-459a-80f6-927370a083f0 status: SUCCEEDED
+2025-06-29 08:15:03,186 | INFO     | Athena Query 10b957d9-db64-459a-80f6-927370a083f0 completed successfully
+2025-06-29 08:15:03,388 | INFO     | Athena Query 981af0f2-56d4-4b82-abc1-442856ed3665 status: RUNNING
+2025-06-29 08:15:33,532 | INFO     | Athena Query 981af0f2-56d4-4b82-abc1-442856ed3665 status: SUCCEEDED
+2025-06-29 08:15:33,533 | INFO     | Athena Query 981af0f2-56d4-4b82-abc1-442856ed3665 completed successfully
+2025-06-29 08:15:33,780 | INFO     | Athena Query 688f5481-92e8-4425-b10f-78d42db36b9d status: QUEUED
+2025-06-29 08:16:03,967 | INFO     | Athena Query 688f5481-92e8-4425-b10f-78d42db36b9d status: SUCCEEDED
+2025-06-29 08:16:03,968 | INFO     | Athena Query 688f5481-92e8-4425-b10f-78d42db36b9d completed successfully
+2025-06-29 08:16:03,968 | INFO     | Athena ready.
+2025-06-29 08:16:03,968 | INFO     | Aurora-Athena ETL Pipeline setup completed successfully
+2025-06-29 08:16:03,968 | INFO     | Step 10: Verifying end-to-end connectivity...
+2025-06-29 08:16:03,969 | INFO     | Verifying Aurora database connectivity...
+2025-06-29 08:16:04,186 | INFO     | Successfully connected to Aurora. Available tables: ['customers']
+2025-06-29 08:16:04,235 | INFO     | Customers table exists with 5 records
+2025-06-29 08:16:04,236 | INFO     | Verifying Glue connection...
+2025-06-29 08:16:04,457 | INFO     | Glue connection aurora-mysql-connection exists
+2025-06-29 08:16:04,457 | INFO     | Verifying S3 bucket...
+2025-06-29 08:16:04,595 | INFO     | S3 bucket glue-target-bucket-758045074543 exists and is accessible
+2025-06-29 08:16:04,596 | INFO     | End-to-end connectivity verification completed
+2025-06-29 08:18:56,650 | INFO     | Loading configuration …
+2025-06-29 08:18:56,652 | INFO     | Creating boto3 session using access keys
+2025-06-29 08:18:57,326 | INFO     | Starting Aurora-Athena ETL Pipeline
+2025-06-29 08:18:57,326 | INFO     | Step 1: Setting up Aurora database...
+2025-06-29 08:18:57,566 | INFO     | Aurora cluster exists.
+2025-06-29 08:18:57,721 | INFO     | Aurora endpoint: aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com
+2025-06-29 08:18:57,721 | INFO     | Step 2: Getting network configuration...
+2025-06-29 08:18:57,970 | INFO     | VPC ID: vpc-0f15c04318b40a676, Subnet ID: subnet-0553f25524068da63, Security Group ID: sg-037b5747a16125191
+2025-06-29 08:18:57,970 | INFO     | Step 3: Configuring security group access...
+2025-06-29 08:18:58,071 | INFO     | Security group sg-037b5747a16125191 already has MySQL access rule
+2025-06-29 08:18:58,072 | INFO     | Step 4: Setting up VPC endpoints...
+2025-06-29 08:18:58,072 | INFO     | Setting up VPC endpoints for AWS Glue connectivity...
+2025-06-29 08:18:58,198 | INFO     | VPC endpoint for com.amazonaws.us-east-1.glue already exists
+2025-06-29 08:18:58,198 | INFO     | VPC endpoint for com.amazonaws.us-east-1.s3 already exists
+2025-06-29 08:18:58,198 | INFO     | Step 5: Initializing database tables...
+2025-06-29 08:18:58,198 | INFO     | Initializing database tables...
+2025-06-29 08:18:58,198 | INFO     | Waiting for Aurora instance to be fully available...
+2025-06-29 08:19:08,203 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 1/3)
+2025-06-29 08:19:08,396 | INFO     | Customers table already contains 5 records
+2025-06-29 08:19:08,420 | INFO     | Verified table access: True
+2025-06-29 08:19:08,421 | INFO     | Database tables initialized successfully
+2025-06-29 08:19:08,421 | INFO     | Step 6: Setting up IAM role...
+2025-06-29 08:19:08,650 | INFO     | IAM Role ARN: arn:aws:iam::758045074543:role/GlueServiceRole
+2025-06-29 08:19:08,651 | INFO     | Step 7: Setting up AWS Glue...
+2025-06-29 08:19:09,141 | INFO     | Found Aurora VPC ID: vpc-0f15c04318b40a676
+2025-06-29 08:19:09,331 | INFO     | Glue connection aurora-mysql-connection exists
+2025-06-29 08:19:09,332 | INFO     | Updating Glue connection with correct endpoint and explicit database name: jdbc:mysql://aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com:3306/sampledb?databaseName=sampledb
+2025-06-29 08:19:09,527 | INFO     | Skipping connection test as TestConnection is only supported for Unified Connections
+2025-06-29 08:19:09,739 | INFO     | Starting crawler aurora-mysql-crawler...
+2025-06-29 08:19:21,149 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: RUNNING
+2025-06-29 08:19:51,236 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: STOPPING
+2025-06-29 08:20:21,343 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: STOPPING
+2025-06-29 08:20:51,462 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: STOPPING
+2025-06-29 08:21:21,566 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: READY
+2025-06-29 08:21:21,567 | INFO     | Glue Crawler 'aurora-mysql-crawler' completed successfully
+2025-06-29 08:21:21,568 | INFO     | Waiting 30 seconds for Glue catalog to update completely...
+2025-06-29 08:21:51,690 | INFO     | Database 'aurora_catalog' exists in the catalog
+2025-06-29 08:21:51,813 | INFO     | Found 0 tables in database 'aurora_catalog'
+2025-06-29 08:21:51,813 | WARNING  | No tables found in database 'aurora_catalog'
+2025-06-29 08:21:51,814 | WARNING  | Will attempt to use original table name 'aurora_customers' but job may fail
+2025-06-29 08:21:52,229 | INFO     | Uploaded ETL script → s3://aws-glue-scripts-758045074543-us-east-1/admin/aurora-to-s3-etl.py
+2025-06-29 08:21:52,561 | INFO     | Updated Glue job aurora-to-s3-etl with JDBC connection parameters
+2025-06-29 08:21:52,851 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: RUNNING
+2025-06-29 08:22:22,957 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: RUNNING
+2025-06-29 08:22:53,062 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: RUNNING
+2025-06-29 08:23:23,171 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: SUCCEEDED
+2025-06-29 08:23:23,171 | INFO     | Glue ETL Job 'aurora-to-s3-etl' completed successfully
+2025-06-29 08:23:23,172 | INFO     | Step 8: Waiting for resources to stabilize...
+2025-06-29 08:23:33,178 | INFO     | Step 9: Setting up Athena...
+2025-06-29 08:23:33,513 | INFO     | Athena Query 1763b9e0-1b06-4203-a016-dde26300d929 status: QUEUED
+2025-06-29 08:24:04,107 | INFO     | Athena Query 1763b9e0-1b06-4203-a016-dde26300d929 status: SUCCEEDED
+2025-06-29 08:24:04,110 | INFO     | Athena Query 1763b9e0-1b06-4203-a016-dde26300d929 completed successfully
+2025-06-29 08:24:04,256 | INFO     | Athena Query 96b04fa0-04f0-4807-a6a8-1047c0e7248b status: QUEUED
+2025-06-29 08:24:34,671 | INFO     | Athena Query 96b04fa0-04f0-4807-a6a8-1047c0e7248b status: SUCCEEDED
+2025-06-29 08:24:34,671 | INFO     | Athena Query 96b04fa0-04f0-4807-a6a8-1047c0e7248b completed successfully
+2025-06-29 08:24:34,935 | INFO     | Athena Query 67427d2c-def4-4827-b399-8a648460026f status: QUEUED
+2025-06-29 08:25:05,062 | INFO     | Athena Query 67427d2c-def4-4827-b399-8a648460026f status: SUCCEEDED
+2025-06-29 08:25:05,063 | INFO     | Athena Query 67427d2c-def4-4827-b399-8a648460026f completed successfully
+2025-06-29 08:25:05,064 | INFO     | Athena ready.
+2025-06-29 08:25:05,064 | INFO     | Aurora-Athena ETL Pipeline setup completed successfully
+2025-06-29 08:25:05,065 | INFO     | Step 10: Verifying end-to-end connectivity...
+2025-06-29 08:25:05,065 | INFO     | Verifying Aurora database connectivity...
+2025-06-29 08:25:05,239 | INFO     | Successfully connected to Aurora. Available tables: ['customers']
+2025-06-29 08:25:05,281 | INFO     | Customers table exists with 5 records
+2025-06-29 08:25:05,282 | INFO     | Verifying Glue connection...
+2025-06-29 08:25:05,645 | INFO     | Glue connection aurora-mysql-connection exists
+2025-06-29 08:25:05,646 | INFO     | Verifying S3 bucket...
+2025-06-29 08:25:05,800 | INFO     | S3 bucket glue-target-bucket-758045074543 exists and is accessible
+2025-06-29 08:25:05,800 | INFO     | End-to-end connectivity verification completed
+2025-06-29 09:03:45,031 | INFO     | Loading configuration …
+2025-06-29 09:03:45,033 | INFO     | Creating boto3 session using access keys
+2025-06-29 09:03:45,675 | INFO     | Starting Aurora-Athena ETL Pipeline
+2025-06-29 09:03:45,676 | INFO     | Step 1: Setting up Aurora database...
+2025-06-29 09:03:45,922 | INFO     | Aurora cluster exists.
+2025-06-29 09:03:46,072 | INFO     | Aurora endpoint: aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com
+2025-06-29 09:03:46,073 | INFO     | Step 2: Getting network configuration...
+2025-06-29 09:03:46,432 | INFO     | VPC ID: vpc-0f15c04318b40a676, Subnet ID: subnet-0553f25524068da63, Security Group ID: sg-037b5747a16125191
+2025-06-29 09:03:46,432 | INFO     | Step 3: Configuring security group access...
+2025-06-29 09:03:46,520 | INFO     | Security group sg-037b5747a16125191 already has MySQL access rule
+2025-06-29 09:03:46,520 | INFO     | Step 4: Setting up VPC endpoints...
+2025-06-29 09:03:46,520 | INFO     | Setting up VPC endpoints for AWS Glue connectivity...
+2025-06-29 09:03:46,964 | INFO     | VPC endpoint for com.amazonaws.us-east-1.glue already exists
+2025-06-29 09:03:46,964 | INFO     | VPC endpoint for com.amazonaws.us-east-1.s3 already exists
+2025-06-29 09:03:46,964 | INFO     | Step 5: Initializing database tables...
+2025-06-29 09:03:46,964 | INFO     | Initializing database tables...
+2025-06-29 09:03:46,964 | INFO     | Waiting for Aurora instance to be fully available...
+2025-06-29 09:03:56,968 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 1/3)
+2025-06-29 09:03:57,157 | INFO     | Customers table already contains 5 records
+2025-06-29 09:03:57,203 | INFO     | Verified table access: True
+2025-06-29 09:03:57,204 | INFO     | Database tables initialized successfully
+2025-06-29 09:03:57,204 | INFO     | Step 6: Setting up IAM role...
+2025-06-29 09:03:57,367 | INFO     | IAM Role ARN: arn:aws:iam::758045074543:role/GlueServiceRole
+2025-06-29 09:03:57,368 | INFO     | Step 7: Setting up AWS Glue...
+2025-06-29 09:03:57,823 | INFO     | Found Aurora VPC ID: vpc-0f15c04318b40a676
+2025-06-29 09:03:58,004 | INFO     | Glue connection aurora-mysql-connection exists
+2025-06-29 09:03:58,004 | INFO     | Updating Glue connection with correct endpoint and explicit database name: jdbc:mysql://aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com:3306/sampledb?databaseName=sampledb
+2025-06-29 09:03:58,151 | INFO     | Skipping connection test as TestConnection is only supported for Unified Connections
+2025-06-29 09:03:58,353 | INFO     | Starting crawler aurora-mysql-crawler...
+2025-06-29 09:04:09,795 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: RUNNING
+2025-06-29 09:04:39,884 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: STOPPING
+2025-06-29 09:05:09,998 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: STOPPING
+2025-06-29 09:05:40,093 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: STOPPING
+2025-06-29 09:06:10,197 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: READY
+2025-06-29 09:06:10,198 | INFO     | Glue Crawler 'aurora-mysql-crawler' completed successfully
+2025-06-29 09:06:10,198 | INFO     | Waiting 30 seconds for Glue catalog to update completely...
+2025-06-29 09:06:40,310 | INFO     | Database 'aurora_catalog' exists in the catalog
+2025-06-29 09:06:40,424 | INFO     | Found 0 tables in database 'aurora_catalog'
+2025-06-29 09:06:40,424 | WARNING  | No tables found in database 'aurora_catalog'
+2025-06-29 09:06:40,424 | WARNING  | Will attempt to use original table name 'aurora_customers' but job may fail
+2025-06-29 09:06:40,839 | INFO     | Uploaded ETL script → s3://aws-glue-scripts-758045074543-us-east-1/admin/aurora-to-s3-etl.py
+2025-06-29 09:06:41,136 | INFO     | Updated Glue job aurora-to-s3-etl with JDBC connection parameters
+2025-06-29 09:06:41,353 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: RUNNING
+2025-06-29 09:07:11,453 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: RUNNING
+2025-06-29 09:07:41,558 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: RUNNING
+2025-06-29 09:08:11,658 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: SUCCEEDED
+2025-06-29 09:08:11,659 | INFO     | Glue ETL Job 'aurora-to-s3-etl' completed successfully
+2025-06-29 09:08:11,660 | INFO     | Step 8: Waiting for resources to stabilize...
+2025-06-29 09:08:21,660 | INFO     | Step 9: Setting up Athena...
+2025-06-29 09:08:21,947 | INFO     | Athena Query 6848f95a-7241-49d7-9d21-c4c50c85e412 status: QUEUED
+2025-06-29 09:08:52,063 | INFO     | Athena Query 6848f95a-7241-49d7-9d21-c4c50c85e412 status: SUCCEEDED
+2025-06-29 09:08:52,078 | INFO     | Athena Query 6848f95a-7241-49d7-9d21-c4c50c85e412 completed successfully
+2025-06-29 09:08:52,257 | INFO     | Athena Query 3ef2f130-41f3-4555-a15e-e751793547f2 status: QUEUED
+2025-06-29 09:09:23,049 | INFO     | Athena Query 3ef2f130-41f3-4555-a15e-e751793547f2 status: SUCCEEDED
+2025-06-29 09:09:23,050 | INFO     | Athena Query 3ef2f130-41f3-4555-a15e-e751793547f2 completed successfully
+2025-06-29 09:09:23,300 | INFO     | Athena Query b9d3ddb8-624c-4f0f-bfee-27fabb08bf12 status: QUEUED
+2025-06-29 09:09:54,350 | INFO     | Athena Query b9d3ddb8-624c-4f0f-bfee-27fabb08bf12 status: SUCCEEDED
+2025-06-29 09:09:54,351 | INFO     | Athena Query b9d3ddb8-624c-4f0f-bfee-27fabb08bf12 completed successfully
+2025-06-29 09:09:54,351 | INFO     | Athena ready.
+2025-06-29 09:09:54,351 | INFO     | Aurora-Athena ETL Pipeline setup completed successfully
+2025-06-29 09:09:54,351 | INFO     | Step 10: Verifying end-to-end connectivity...
+2025-06-29 09:09:54,352 | INFO     | Verifying Aurora database connectivity...
+2025-06-29 09:09:54,613 | INFO     | Successfully connected to Aurora. Available tables: ['current_dept_emp', 'customers', 'departments', 'dept_emp', 'dept_emp_latest_date', 'dept_manager', 'employees', 'salaries', 'titles']
+2025-06-29 09:09:54,665 | INFO     | Customers table exists with 5 records
+2025-06-29 09:09:54,665 | INFO     | Verifying Glue connection...
+2025-06-29 09:09:54,891 | INFO     | Glue connection aurora-mysql-connection exists
+2025-06-29 09:09:54,892 | INFO     | Verifying S3 bucket...
+2025-06-29 09:09:55,042 | INFO     | S3 bucket glue-target-bucket-758045074543 exists and is accessible
+2025-06-29 09:09:55,042 | INFO     | End-to-end connectivity verification completed
+2025-06-29 09:15:56,322 | INFO     | Loading configuration …
+2025-06-29 09:15:56,324 | INFO     | Creating boto3 session using access keys
+2025-06-29 09:15:57,092 | INFO     | Starting Aurora-Athena ETL Pipeline
+2025-06-29 09:15:57,092 | INFO     | Step 1: Setting up Aurora database...
+2025-06-29 09:15:57,370 | INFO     | Aurora cluster exists.
+2025-06-29 09:15:57,544 | INFO     | Aurora endpoint: aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com
+2025-06-29 09:15:57,544 | INFO     | Step 2: Getting network configuration...
+2025-06-29 09:15:57,777 | INFO     | VPC ID: vpc-0f15c04318b40a676, Subnet ID: subnet-0553f25524068da63, Security Group ID: sg-037b5747a16125191
+2025-06-29 09:15:57,777 | INFO     | Step 3: Configuring security group access...
+2025-06-29 09:15:57,875 | INFO     | Security group sg-037b5747a16125191 already has MySQL access rule
+2025-06-29 09:15:57,875 | INFO     | Step 4: Setting up VPC endpoints...
+2025-06-29 09:15:57,875 | INFO     | Setting up VPC endpoints for AWS Glue connectivity...
+2025-06-29 09:15:57,995 | INFO     | VPC endpoint for com.amazonaws.us-east-1.glue already exists
+2025-06-29 09:15:57,995 | INFO     | VPC endpoint for com.amazonaws.us-east-1.s3 already exists
+2025-06-29 09:15:57,995 | INFO     | Step 5: Initializing database tables...
+2025-06-29 09:15:57,995 | INFO     | Initializing database tables...
+2025-06-29 09:15:57,995 | INFO     | Waiting for Aurora instance to be fully available...
+2025-06-29 09:16:08,000 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 1/3)
+2025-06-29 09:16:08,318 | INFO     | Customers table already contains 5 records
+2025-06-29 09:16:08,341 | INFO     | Verified table access: True
+2025-06-29 09:16:08,341 | INFO     | Database tables initialized successfully
+2025-06-29 09:16:08,341 | INFO     | Step 6: Setting up IAM role...
+2025-06-29 09:16:08,530 | INFO     | IAM Role ARN: arn:aws:iam::758045074543:role/GlueServiceRole
+2025-06-29 09:16:08,530 | INFO     | Step 7: Setting up AWS Glue...
+2025-06-29 09:16:08,993 | INFO     | Found Aurora VPC ID: vpc-0f15c04318b40a676
+2025-06-29 09:16:09,193 | INFO     | Glue connection aurora-mysql-connection exists
+2025-06-29 09:16:09,193 | INFO     | Updating Glue connection with correct endpoint and explicit database name: jdbc:mysql://aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com:3306/sampledb?databaseName=sampledb
+2025-06-29 09:16:09,331 | INFO     | Skipping connection test as TestConnection is only supported for Unified Connections
+2025-06-29 09:16:09,556 | INFO     | Starting crawler aurora-mysql-crawler...
+2025-06-29 09:16:16,437 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: RUNNING
+2025-06-29 09:16:46,527 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: STOPPING
+2025-06-29 09:17:16,681 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: STOPPING
+2025-06-29 09:17:46,786 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: STOPPING
+2025-06-29 09:18:16,878 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: READY
+2025-06-29 09:18:16,878 | INFO     | Glue Crawler 'aurora-mysql-crawler' completed successfully
+2025-06-29 09:18:16,879 | INFO     | Waiting 30 seconds for Glue catalog to update completely...
+2025-06-29 09:18:47,008 | INFO     | Database 'aurora_catalog' exists in the catalog
+2025-06-29 09:18:47,127 | INFO     | Found 0 tables in database 'aurora_catalog'
+2025-06-29 09:18:47,127 | WARNING  | No tables found in database 'aurora_catalog'
+2025-06-29 09:18:47,127 | WARNING  | Will attempt to use original table name 'aurora_customers' but job may fail
+2025-06-29 09:18:47,556 | INFO     | Uploaded ETL script → s3://aws-glue-scripts-758045074543-us-east-1/admin/aurora-to-s3-etl.py
+2025-06-29 09:18:47,862 | INFO     | Updated Glue job aurora-to-s3-etl with JDBC connection parameters
+2025-06-29 09:18:48,096 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: RUNNING
+2025-06-29 09:19:18,227 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: RUNNING
+2025-06-29 09:19:48,340 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: RUNNING
+2025-06-29 09:20:18,421 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: SUCCEEDED
+2025-06-29 09:20:18,421 | INFO     | Glue ETL Job 'aurora-to-s3-etl' completed successfully
+2025-06-29 09:20:18,422 | INFO     | Step 8: Waiting for resources to stabilize...
+2025-06-29 09:20:28,425 | INFO     | Step 9: Setting up Athena...
+2025-06-29 09:20:28,682 | INFO     | Athena Query dbb4e506-0ff6-4799-a797-8fd502622d24 status: QUEUED
+2025-06-29 09:20:59,120 | INFO     | Athena Query dbb4e506-0ff6-4799-a797-8fd502622d24 status: SUCCEEDED
+2025-06-29 09:20:59,120 | INFO     | Athena Query dbb4e506-0ff6-4799-a797-8fd502622d24 completed successfully
+2025-06-29 09:20:59,276 | INFO     | Athena Query 4512036c-339e-470f-b2c4-4f8ca567e881 status: QUEUED
+2025-06-29 09:21:30,721 | INFO     | Athena Query 4512036c-339e-470f-b2c4-4f8ca567e881 status: SUCCEEDED
+2025-06-29 09:21:30,722 | INFO     | Athena Query 4512036c-339e-470f-b2c4-4f8ca567e881 completed successfully
+2025-06-29 09:21:30,982 | INFO     | Athena Query e1cb0272-fc85-4176-868f-876c3eda94a3 status: QUEUED
+2025-06-29 09:22:01,648 | INFO     | Athena Query e1cb0272-fc85-4176-868f-876c3eda94a3 status: SUCCEEDED
+2025-06-29 09:22:01,650 | INFO     | Athena Query e1cb0272-fc85-4176-868f-876c3eda94a3 completed successfully
+2025-06-29 09:22:01,650 | INFO     | Athena ready.
+2025-06-29 09:22:01,650 | INFO     | Aurora-Athena ETL Pipeline setup completed successfully
+2025-06-29 09:22:01,650 | INFO     | Step 10: Verifying end-to-end connectivity...
+2025-06-29 09:22:01,650 | INFO     | Verifying Aurora database connectivity...
+2025-06-29 09:22:01,819 | INFO     | Successfully connected to Aurora. Available tables: ['current_dept_emp', 'customers', 'departments', 'dept_emp', 'dept_emp_latest_date', 'dept_manager', 'employees', 'salaries', 'titles']
+2025-06-29 09:22:01,869 | INFO     | Customers table exists with 5 records
+2025-06-29 09:22:01,870 | INFO     | Verifying Glue connection...
+2025-06-29 09:22:02,092 | INFO     | Glue connection aurora-mysql-connection exists
+2025-06-29 09:22:02,093 | INFO     | Verifying S3 bucket...
+2025-06-29 09:22:02,253 | INFO     | S3 bucket glue-target-bucket-758045074543 exists and is accessible
+2025-06-29 09:22:02,253 | INFO     | End-to-end connectivity verification completed
+2025-06-29 22:37:56,878 | INFO     | Loading configuration …
+2025-06-29 22:37:56,880 | INFO     | Creating boto3 session using access keys
+2025-06-29 22:37:57,950 | INFO     | Starting Aurora-Athena ETL Pipeline
+2025-06-29 22:37:57,950 | INFO     | Step 1: Setting up Aurora database...
+2025-06-29 22:37:59,561 | INFO     | Creating Aurora cluster …
+2025-06-29 22:37:59,877 | INFO     | Primary subnet subnet-0553f25524068da63 in VPC vpc-0f15c04318b40a676 (AZ: us-east-1a)
+2025-06-29 22:37:59,877 | INFO     | Finding additional subnets in VPC vpc-0f15c04318b40a676 for multi-AZ coverage...
+2025-06-29 22:38:00,018 | INFO     | Adding subnet subnet-02c7622531effa24f from AZ us-east-1b
+2025-06-29 22:38:00,018 | INFO     | Using subnets from 2 AZs: us-east-1b, us-east-1a
+2025-06-29 22:38:00,018 | INFO     | Checking if DB subnet group 'aurora-subnet-group' exists...
+2025-06-29 22:38:00,080 | INFO     | Creating DB subnet group 'aurora-subnet-group'...
+2025-06-29 22:38:00,843 | INFO     | DB subnet group 'aurora-subnet-group' created successfully with subnets in 2 AZs
+2025-06-29 22:38:03,164 | INFO     | Waiting for Aurora cluster to be available...
+2025-06-29 22:39:04,222 | INFO     | Waiting for Aurora instance aurora-mysql-cluster-instance-1 to be available...
+2025-06-29 22:44:06,616 | INFO     | Aurora cluster and instance are available. Waiting additional 60 seconds for database to be fully operational...
+2025-06-29 22:45:06,760 | INFO     | Aurora ready → aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com
+2025-06-29 22:45:06,761 | INFO     | Creating employee database schema...
+2025-06-29 22:45:06,761 | INFO     | Looking for employee data in: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db
+2025-06-29 22:45:06,762 | INFO     | Directory exists, contents: ['sakila', 'load_salaries2.dump', 'test_versions.sh', 'objects.sql', '.DS_Store', 'load_salaries3.dump', 'load_dept_emp.dump', 'test_employees_sha.sql', 'Changelog', 'images', 'employees_partitioned_5.1.sql', 'test_employees_md5.sql', 'README.md', 'employees.sql', 'load_titles.dump', 'employees_partitioned.sql', 'load_dept_manager.dump', 'sql_test.sh', '.git', 'load_departments.dump', 'load_salaries1.dump', 'show_elapsed.sql', 'load_employees.dump']
+2025-06-29 22:45:06,762 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/employees.sql
+2025-06-29 22:45:06,763 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_departments.dump
+2025-06-29 22:45:06,763 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_employees.dump
+2025-06-29 22:45:06,763 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_dept_manager.dump
+2025-06-29 22:45:06,763 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_dept_emp.dump
+2025-06-29 22:45:06,763 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_titles.dump
+2025-06-29 22:45:06,763 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_salaries1.dump
+2025-06-29 22:45:06,764 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_salaries2.dump
+2025-06-29 22:45:06,764 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_salaries3.dump
+2025-06-29 22:45:06,764 | INFO     | Waiting 600 seconds before connecting to database (attempt 1/3)
+2025-06-29 22:55:06,775 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 1/3)
+2025-06-29 22:55:36,840 | WARNING  | Error initializing employee database (attempt 1/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' (timed out)")
+2025-06-29 22:55:36,841 | INFO     | Retrying in 600 seconds...
+2025-06-29 23:05:36,852 | INFO     | Waiting 120 seconds before connecting to database (attempt 2/3)
+2025-06-29 23:07:36,858 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 2/3)
+2025-06-29 23:08:06,935 | WARNING  | Error initializing employee database (attempt 2/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' (timed out)")
+2025-06-29 23:08:06,938 | INFO     | Retrying in 120 seconds...
+2025-06-30 00:19:31,846 | INFO     | Waiting 60 seconds before connecting to database (attempt 3/3)
+2025-06-30 00:20:31,852 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 3/3)
+2025-06-30 00:21:01,891 | WARNING  | Error initializing employee database (attempt 3/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' (timed out)")
+2025-06-30 00:21:01,891 | ERROR    | Failed to initialize employee database after multiple attempts
+2025-06-30 00:21:01,891 | INFO     | Employee schema setup skipped - continuing with pipeline
+2025-06-30 00:21:01,892 | INFO     | Aurora endpoint: aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com
+2025-06-30 00:21:01,893 | INFO     | Step 2: Getting network configuration...
+2025-06-30 00:21:02,359 | INFO     | VPC ID: vpc-0f15c04318b40a676, Subnet ID: subnet-0553f25524068da63, Security Group ID: sg-037b5747a16125191
+2025-06-30 00:21:02,359 | INFO     | Step 3: Configuring security group access...
+2025-06-30 00:21:02,464 | INFO     | Security group sg-037b5747a16125191 already has MySQL access rule
+2025-06-30 00:21:02,464 | INFO     | Step 4: Setting up VPC endpoints...
+2025-06-30 00:21:02,464 | INFO     | Setting up VPC endpoints for AWS Glue connectivity...
+2025-06-30 00:21:02,607 | INFO     | VPC endpoint for com.amazonaws.us-east-1.glue already exists
+2025-06-30 00:21:02,608 | INFO     | VPC endpoint for com.amazonaws.us-east-1.s3 already exists
+2025-06-30 00:21:02,608 | INFO     | Step 5: Initializing database tables...
+2025-06-30 00:21:02,608 | INFO     | Initializing database tables...
+2025-06-30 00:21:02,608 | INFO     | Waiting for Aurora instance to be fully available...
+2025-06-30 00:21:12,610 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 1/3)
+2025-06-30 00:21:42,639 | WARNING  | Error initializing database tables (attempt 1/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' (timed out)")
+2025-06-30 00:21:42,640 | INFO     | Retrying in 5 seconds...
+2025-06-30 00:21:47,641 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 2/3)
+2025-06-30 00:22:17,669 | WARNING  | Error initializing database tables (attempt 2/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' (timed out)")
+2025-06-30 00:22:17,670 | INFO     | Retrying in 10 seconds...
+2025-06-30 00:22:27,673 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 3/3)
+2025-06-30 00:22:57,694 | WARNING  | Error initializing database tables (attempt 3/3): (2003, "Can't connect to MySQL server on 'aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com' (timed out)")
+2025-06-30 00:22:57,694 | ERROR    | Failed to initialize database tables after multiple attempts
+2025-06-30 00:22:57,694 | INFO     | Step 6: Setting up IAM role...
+2025-06-30 00:22:57,853 | INFO     | Creating IAM role GlueServiceRole
+2025-06-30 00:23:08,294 | INFO     | IAM Role ARN: arn:aws:iam::758045074543:role/GlueServiceRole
+2025-06-30 00:23:08,295 | INFO     | Step 7: Setting up AWS Glue...
+2025-06-30 00:23:09,026 | INFO     | Found Aurora VPC ID: vpc-0f15c04318b40a676
+2025-06-30 00:23:09,447 | INFO     | Creating Glue connection aurora-mysql-connection
+2025-06-30 00:23:09,685 | INFO     | Creating crawler aurora-mysql-crawler
+2025-06-30 00:23:10,155 | INFO     | Starting crawler aurora-mysql-crawler...
+2025-06-30 00:23:19,044 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: RUNNING
+2025-06-30 00:23:49,223 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: STOPPING
+2025-06-30 00:24:19,328 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: STOPPING
+2025-06-30 00:24:49,433 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: STOPPING
+2025-06-30 00:25:19,614 | INFO     | Glue Crawler 'aurora-mysql-crawler' status: READY
+2025-06-30 00:25:19,614 | INFO     | Glue Crawler 'aurora-mysql-crawler' completed successfully
+2025-06-30 00:25:19,614 | INFO     | Waiting 30 seconds for Glue catalog to update completely...
+2025-06-30 00:25:49,739 | INFO     | Database 'aurora_catalog' not found in catalog. Creating it...
+2025-06-30 00:25:49,906 | INFO     | Created database 'aurora_catalog' in the catalog
+2025-06-30 00:25:49,906 | INFO     | Starting crawler again to populate the new database...
+2025-06-30 00:26:01,417 | INFO     | Glue Crawler 'aurora-mysql-crawler' (database population) status: RUNNING
+2025-06-30 00:26:31,519 | INFO     | Glue Crawler 'aurora-mysql-crawler' (database population) status: STOPPING
+2025-06-30 00:27:01,624 | INFO     | Glue Crawler 'aurora-mysql-crawler' (database population) status: STOPPING
+2025-06-30 00:27:31,719 | INFO     | Glue Crawler 'aurora-mysql-crawler' (database population) status: STOPPING
+2025-06-30 00:28:01,816 | INFO     | Glue Crawler 'aurora-mysql-crawler' (database population) status: READY
+2025-06-30 00:28:01,817 | INFO     | Glue Crawler 'aurora-mysql-crawler' (database population) completed successfully
+2025-06-30 00:28:01,817 | INFO     | Waiting 30 seconds for catalog to update after crawler run...
+2025-06-30 00:28:31,932 | INFO     | Found 0 tables in database 'aurora_catalog'
+2025-06-30 00:28:31,933 | WARNING  | No tables found in database 'aurora_catalog'
+2025-06-30 00:28:31,933 | WARNING  | Will attempt to use original table name 'aurora_customers' but job may fail
+2025-06-30 00:28:32,564 | INFO     | Uploaded ETL script → s3://aws-glue-scripts-758045074543-us-east-1/admin/aurora-to-s3-etl.py
+2025-06-30 00:28:32,795 | INFO     | Creating Glue job aurora-to-s3-etl
+2025-06-30 00:28:33,137 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: RUNNING
+2025-06-30 00:29:03,239 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: RUNNING
+2025-06-30 00:29:33,433 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: RUNNING
+2025-06-30 00:30:03,537 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: RUNNING
+2025-06-30 00:30:33,629 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: RUNNING
+2025-06-30 00:31:03,730 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: RUNNING
+2025-06-30 00:31:33,829 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: RUNNING
+2025-06-30 00:32:03,933 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: RUNNING
+2025-06-30 00:32:34,058 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: RUNNING
+2025-06-30 00:33:04,158 | INFO     | Glue ETL Job 'aurora-to-s3-etl' status: RUNNING
+2025-06-30 00:51:05,835 | INFO     | Loading configuration …
+2025-06-30 00:51:05,837 | INFO     | Creating boto3 session using access keys
+2025-06-30 00:51:06,362 | INFO     | Starting Aurora-Athena ETL Pipeline
+2025-06-30 00:51:06,362 | INFO     | Step 1: Setting up Aurora database...
+2025-06-30 00:51:06,531 | INFO     | Aurora cluster 'aurora-mysql-cluster' does not exist, creating it...
+2025-06-30 00:51:06,531 | ERROR    | Error in ETL pipeline: 'subnet_group_name'
+2025-06-30 00:51:06,535 | ERROR    | Traceback (most recent call last):
+  File "/Users/mattforbush/Projects/AWS-DE_Academy/Aurora-Athena_Using_Glue/bin/dev/aurora_athena_etl_pipeline_db.py", line 168, in setup_aurora
+    ep = rds.describe_db_clusters(DBClusterIdentifier=cid)["DBClusters"][0]["Endpoint"]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/client.py", line 595, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/context.py", line 123, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/client.py", line 1058, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.errorfactory.DBClusterNotFoundFault: An error occurred (DBClusterNotFoundFault) when calling the DescribeDBClusters operation: DBCluster aurora-mysql-cluster not found.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/mattforbush/Projects/AWS-DE_Academy/Aurora-Athena_Using_Glue/bin/dev/aurora_athena_etl_pipeline_db.py", line 1425, in run
+    aurora_endpoint = self.setup_aurora()
+                      ^^^^^^^^^^^^^^^^^^^
+  File "/Users/mattforbush/Projects/AWS-DE_Academy/Aurora-Athena_Using_Glue/bin/dev/aurora_athena_etl_pipeline_db.py", line 210, in setup_aurora
+    subnet_group_name = p["subnet_group_name"]
+                        ~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'subnet_group_name'
+
+2025-06-30 00:53:08,853 | INFO     | Loading configuration …
+2025-06-30 00:53:08,855 | INFO     | Creating boto3 session using access keys
+2025-06-30 00:53:09,353 | INFO     | Starting Aurora-Athena ETL Pipeline
+2025-06-30 00:53:09,353 | INFO     | Step 1: Setting up Aurora database...
+2025-06-30 00:53:09,562 | INFO     | Aurora cluster 'aurora-mysql-cluster' does not exist, creating it...
+2025-06-30 00:53:09,562 | INFO     | Creating DB subnet group 'aurora-subnet-group'...
+2025-06-30 00:53:09,636 | ERROR    | Error in ETL pipeline: An error occurred (InvalidSubnet) when calling the CreateDBSubnetGroup operation: Subnet IDs are required.
+2025-06-30 00:53:09,640 | ERROR    | Traceback (most recent call last):
+  File "/Users/mattforbush/Projects/AWS-DE_Academy/Aurora-Athena_Using_Glue/bin/dev/aurora_athena_etl_pipeline_db.py", line 168, in setup_aurora
+    ep = rds.describe_db_clusters(DBClusterIdentifier=cid)["DBClusters"][0]["Endpoint"]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/client.py", line 595, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/context.py", line 123, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/client.py", line 1058, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.errorfactory.DBClusterNotFoundFault: An error occurred (DBClusterNotFoundFault) when calling the DescribeDBClusters operation: DBCluster aurora-mysql-cluster not found.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/mattforbush/Projects/AWS-DE_Academy/Aurora-Athena_Using_Glue/bin/dev/aurora_athena_etl_pipeline_db.py", line 1426, in run
+    aurora_endpoint = self.setup_aurora()
+                      ^^^^^^^^^^^^^^^^^^^
+  File "/Users/mattforbush/Projects/AWS-DE_Academy/Aurora-Athena_Using_Glue/bin/dev/aurora_athena_etl_pipeline_db.py", line 215, in setup_aurora
+    rds.create_db_subnet_group(
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/client.py", line 595, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/context.py", line 123, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/client.py", line 1058, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.errorfactory.InvalidSubnet: An error occurred (InvalidSubnet) when calling the CreateDBSubnetGroup operation: Subnet IDs are required.
+
+2025-06-30 00:53:12,943 | INFO     | Loading configuration …
+2025-06-30 00:53:12,944 | INFO     | Creating boto3 session using access keys
+2025-06-30 00:53:13,245 | INFO     | Starting Aurora-Athena ETL Pipeline
+2025-06-30 00:53:13,246 | INFO     | Step 1: Setting up Aurora database...
+2025-06-30 00:53:13,410 | INFO     | Aurora cluster 'aurora-mysql-cluster' does not exist, creating it...
+2025-06-30 00:53:13,410 | INFO     | Creating DB subnet group 'aurora-subnet-group'...
+2025-06-30 00:53:13,472 | ERROR    | Error in ETL pipeline: An error occurred (InvalidSubnet) when calling the CreateDBSubnetGroup operation: Subnet IDs are required.
+2025-06-30 00:53:13,475 | ERROR    | Traceback (most recent call last):
+  File "/Users/mattforbush/Projects/AWS-DE_Academy/Aurora-Athena_Using_Glue/bin/dev/aurora_athena_etl_pipeline_db.py", line 168, in setup_aurora
+    ep = rds.describe_db_clusters(DBClusterIdentifier=cid)["DBClusters"][0]["Endpoint"]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/client.py", line 595, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/context.py", line 123, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/client.py", line 1058, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.errorfactory.DBClusterNotFoundFault: An error occurred (DBClusterNotFoundFault) when calling the DescribeDBClusters operation: DBCluster aurora-mysql-cluster not found.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/mattforbush/Projects/AWS-DE_Academy/Aurora-Athena_Using_Glue/bin/dev/aurora_athena_etl_pipeline_db.py", line 1426, in run
+    aurora_endpoint = self.setup_aurora()
+                      ^^^^^^^^^^^^^^^^^^^
+  File "/Users/mattforbush/Projects/AWS-DE_Academy/Aurora-Athena_Using_Glue/bin/dev/aurora_athena_etl_pipeline_db.py", line 215, in setup_aurora
+    rds.create_db_subnet_group(
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/client.py", line 595, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/context.py", line 123, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/client.py", line 1058, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.errorfactory.InvalidSubnet: An error occurred (InvalidSubnet) when calling the CreateDBSubnetGroup operation: Subnet IDs are required.
+
+2025-06-30 00:53:32,793 | INFO     | Loading configuration …
+2025-06-30 00:53:32,794 | INFO     | Creating boto3 session using access keys
+2025-06-30 00:53:33,091 | INFO     | Starting Aurora-Athena ETL Pipeline
+2025-06-30 00:53:33,091 | INFO     | Step 1: Setting up Aurora database...
+2025-06-30 00:53:33,278 | INFO     | Aurora cluster 'aurora-mysql-cluster' does not exist, creating it...
+2025-06-30 00:53:33,278 | INFO     | Creating DB subnet group 'aurora-subnet-group'...
+2025-06-30 00:53:33,346 | ERROR    | Error in ETL pipeline: An error occurred (InvalidSubnet) when calling the CreateDBSubnetGroup operation: Subnet IDs are required.
+2025-06-30 00:53:33,348 | ERROR    | Traceback (most recent call last):
+  File "/Users/mattforbush/Projects/AWS-DE_Academy/Aurora-Athena_Using_Glue/bin/dev/aurora_athena_etl_pipeline_db.py", line 168, in setup_aurora
+    ep = rds.describe_db_clusters(DBClusterIdentifier=cid)["DBClusters"][0]["Endpoint"]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/client.py", line 595, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/context.py", line 123, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/client.py", line 1058, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.errorfactory.DBClusterNotFoundFault: An error occurred (DBClusterNotFoundFault) when calling the DescribeDBClusters operation: DBCluster aurora-mysql-cluster not found.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/mattforbush/Projects/AWS-DE_Academy/Aurora-Athena_Using_Glue/bin/dev/aurora_athena_etl_pipeline_db.py", line 1426, in run
+    aurora_endpoint = self.setup_aurora()
+                      ^^^^^^^^^^^^^^^^^^^
+  File "/Users/mattforbush/Projects/AWS-DE_Academy/Aurora-Athena_Using_Glue/bin/dev/aurora_athena_etl_pipeline_db.py", line 215, in setup_aurora
+    rds.create_db_subnet_group(
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/client.py", line 595, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/context.py", line 123, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/client.py", line 1058, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.errorfactory.InvalidSubnet: An error occurred (InvalidSubnet) when calling the CreateDBSubnetGroup operation: Subnet IDs are required.
+
+2025-06-30 00:56:51,524 | INFO     | Loading configuration …
+2025-06-30 00:56:51,526 | INFO     | Creating boto3 session using access keys
+2025-06-30 00:56:52,042 | INFO     | Starting Aurora-Athena ETL Pipeline
+2025-06-30 00:56:52,042 | INFO     | Step 1: Setting up Aurora database...
+2025-06-30 00:56:52,245 | INFO     | Aurora cluster 'aurora-mysql-cluster' does not exist, creating it...
+2025-06-30 00:56:52,245 | INFO     | Creating DB subnet group 'aurora-subnet-group'...
+2025-06-30 00:56:52,666 | ERROR    | Error in ETL pipeline: An error occurred (DBSubnetGroupDoesNotCoverEnoughAZs) when calling the CreateDBSubnetGroup operation: The DB subnet group doesn't meet Availability Zone (AZ) coverage requirement. Current AZ coverage: us-east-1a. Add subnets to cover at least 2 AZs.
+2025-06-30 00:56:52,671 | ERROR    | Traceback (most recent call last):
+  File "/Users/mattforbush/Projects/AWS-DE_Academy/Aurora-Athena_Using_Glue/bin/dev/aurora_athena_etl_pipeline_db.py", line 168, in setup_aurora
+    ep = rds.describe_db_clusters(DBClusterIdentifier=cid)["DBClusters"][0]["Endpoint"]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/client.py", line 595, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/context.py", line 123, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/client.py", line 1058, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.errorfactory.DBClusterNotFoundFault: An error occurred (DBClusterNotFoundFault) when calling the DescribeDBClusters operation: DBCluster aurora-mysql-cluster not found.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/mattforbush/Projects/AWS-DE_Academy/Aurora-Athena_Using_Glue/bin/dev/aurora_athena_etl_pipeline_db.py", line 1427, in run
+    aurora_endpoint = self.setup_aurora()
+                      ^^^^^^^^^^^^^^^^^^^
+  File "/Users/mattforbush/Projects/AWS-DE_Academy/Aurora-Athena_Using_Glue/bin/dev/aurora_athena_etl_pipeline_db.py", line 216, in setup_aurora
+    rds.create_db_subnet_group(
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/client.py", line 595, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/context.py", line 123, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/botocore/client.py", line 1058, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.errorfactory.DBSubnetGroupDoesNotCoverEnoughAZs: An error occurred (DBSubnetGroupDoesNotCoverEnoughAZs) when calling the CreateDBSubnetGroup operation: The DB subnet group doesn't meet Availability Zone (AZ) coverage requirement. Current AZ coverage: us-east-1a. Add subnets to cover at least 2 AZs.
+
+2025-06-30 01:00:26,255 | INFO     | Loading configuration …
+2025-06-30 01:00:26,256 | INFO     | Creating boto3 session using access keys
+2025-06-30 01:00:26,702 | INFO     | Starting Aurora-Athena ETL Pipeline
+2025-06-30 01:00:26,702 | INFO     | Step 1: Setting up Aurora database...
+2025-06-30 01:00:26,860 | INFO     | Aurora cluster 'aurora-mysql-cluster' does not exist, creating it...
+2025-06-30 01:00:29,073 | INFO     | Aurora cluster created, waiting for it to be available...
+2025-06-30 01:01:29,544 | INFO     | Creating Aurora instance 'aurora-mysql-cluster-instance-1'...
+2025-06-30 01:01:30,723 | INFO     | Aurora instance 'aurora-mysql-cluster-instance-1' created, waiting for it to be available...
+2025-06-30 01:08:03,195 | INFO     | Aurora instance 'aurora-mysql-cluster-instance-1' is now available
+2025-06-30 01:08:03,196 | INFO     | Waiting 2 minutes for DNS propagation and database readiness...
+2025-06-30 01:10:03,462 | INFO     | Checking security group sg-037b5747a16125191 inbound rules...
+2025-06-30 01:10:03,663 | INFO     | Security group sg-037b5747a16125191 already has MySQL access rule
+2025-06-30 01:10:03,664 | INFO     | Aurora cluster endpoint: aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com
+2025-06-30 01:10:03,796 | INFO     | Aurora ready → aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com
+2025-06-30 01:10:03,796 | INFO     | Creating employee database schema...
+2025-06-30 01:10:03,797 | INFO     | Looking for employee data in: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db
+2025-06-30 01:10:03,798 | INFO     | Directory exists, contents: ['sakila', 'load_salaries2.dump', 'test_versions.sh', 'objects.sql', '.DS_Store', 'load_salaries3.dump', 'load_dept_emp.dump', 'test_employees_sha.sql', 'Changelog', 'images', 'employees_partitioned_5.1.sql', 'test_employees_md5.sql', 'README.md', 'employees.sql', 'load_titles.dump', 'employees_partitioned.sql', 'load_dept_manager.dump', 'sql_test.sh', '.git', 'load_departments.dump', 'load_salaries1.dump', 'show_elapsed.sql', 'load_employees.dump']
+2025-06-30 01:10:03,798 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/employees.sql
+2025-06-30 01:10:03,798 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_departments.dump
+2025-06-30 01:10:03,798 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_employees.dump
+2025-06-30 01:10:03,799 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_dept_manager.dump
+2025-06-30 01:10:03,799 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_dept_emp.dump
+2025-06-30 01:10:03,799 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_titles.dump
+2025-06-30 01:10:03,799 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_salaries1.dump
+2025-06-30 01:10:03,799 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_salaries2.dump
+2025-06-30 01:10:03,800 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_salaries3.dump
+2025-06-30 01:10:03,800 | INFO     | Waiting 600 seconds before connecting to database (attempt 1/3)
+2025-06-30 01:20:03,798 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 1/3)
+2025-06-30 01:20:03,950 | INFO     | Connected to Aurora. Adding employee tables to sampledb database...
+2025-06-30 01:20:03,974 | WARNING  | Error initializing employee database (attempt 1/3): (1046, 'No database selected')
+2025-06-30 01:20:03,975 | INFO     | Retrying in 600 seconds...
+2025-06-30 01:30:03,997 | INFO     | Waiting 120 seconds before connecting to database (attempt 2/3)
+2025-06-30 01:32:04,003 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 2/3)
+2025-06-30 01:32:04,293 | INFO     | Connected to Aurora. Adding employee tables to sampledb database...
+2025-06-30 01:32:04,312 | WARNING  | Error initializing employee database (attempt 2/3): (1046, 'No database selected')
+2025-06-30 01:32:04,313 | INFO     | Retrying in 120 seconds...
+2025-06-30 01:42:26,495 | INFO     | Loading configuration …
+2025-06-30 01:42:26,497 | INFO     | Creating boto3 session using access keys
+2025-06-30 01:42:27,101 | INFO     | Starting Aurora-Athena ETL Pipeline
+2025-06-30 01:42:27,101 | INFO     | Step 1: Setting up Aurora database...
+2025-06-30 01:42:27,338 | INFO     | Aurora cluster exists.
+2025-06-30 01:42:27,634 | INFO     | Aurora cluster endpoint: aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com
+2025-06-30 01:42:27,753 | INFO     | Aurora ready → aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com
+2025-06-30 01:42:27,753 | INFO     | Creating employee database schema...
+2025-06-30 01:42:27,754 | INFO     | Looking for employee data in: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db
+2025-06-30 01:42:27,755 | INFO     | Directory exists, contents: ['sakila', 'load_salaries2.dump', 'test_versions.sh', 'objects.sql', '.DS_Store', 'load_salaries3.dump', 'load_dept_emp.dump', 'test_employees_sha.sql', 'Changelog', 'images', 'employees_partitioned_5.1.sql', 'test_employees_md5.sql', 'README.md', 'employees.sql', 'load_titles.dump', 'employees_partitioned.sql', 'load_dept_manager.dump', 'sql_test.sh', '.git', 'load_departments.dump', 'load_salaries1.dump', 'show_elapsed.sql', 'load_employees.dump']
+2025-06-30 01:42:27,756 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/employees.sql
+2025-06-30 01:42:27,756 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_departments.dump
+2025-06-30 01:42:27,756 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_employees.dump
+2025-06-30 01:42:27,756 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_dept_manager.dump
+2025-06-30 01:42:27,756 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_dept_emp.dump
+2025-06-30 01:42:27,756 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_titles.dump
+2025-06-30 01:42:27,756 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_salaries1.dump
+2025-06-30 01:42:27,756 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_salaries2.dump
+2025-06-30 01:42:27,757 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_salaries3.dump
+2025-06-30 01:42:27,757 | INFO     | Waiting 600 seconds before connecting to database (attempt 1/3)
+2025-06-30 01:44:20,866 | INFO     | Loading configuration …
+2025-06-30 01:44:20,868 | INFO     | Creating boto3 session using access keys
+2025-06-30 01:44:21,457 | INFO     | Starting Aurora-Athena ETL Pipeline
+2025-06-30 01:44:21,457 | INFO     | Step 1: Setting up Aurora database...
+2025-06-30 01:44:21,710 | INFO     | Aurora cluster exists.
+2025-06-30 01:44:21,977 | INFO     | Aurora cluster endpoint: aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com
+2025-06-30 01:44:22,239 | INFO     | Aurora ready → aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com
+2025-06-30 01:44:22,239 | INFO     | Creating employee database schema...
+2025-06-30 01:44:22,240 | INFO     | Looking for employee data in: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db
+2025-06-30 01:44:22,241 | INFO     | Directory exists, contents: ['sakila', 'load_salaries2.dump', 'test_versions.sh', 'objects.sql', '.DS_Store', 'load_salaries3.dump', 'load_dept_emp.dump', 'test_employees_sha.sql', 'Changelog', 'images', 'employees_partitioned_5.1.sql', 'test_employees_md5.sql', 'README.md', 'employees.sql', 'load_titles.dump', 'employees_partitioned.sql', 'load_dept_manager.dump', 'sql_test.sh', '.git', 'load_departments.dump', 'load_salaries1.dump', 'show_elapsed.sql', 'load_employees.dump']
+2025-06-30 01:44:22,242 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/employees.sql
+2025-06-30 01:44:22,242 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_departments.dump
+2025-06-30 01:44:22,242 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_employees.dump
+2025-06-30 01:44:22,242 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_dept_manager.dump
+2025-06-30 01:44:22,242 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_dept_emp.dump
+2025-06-30 01:44:22,242 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_titles.dump
+2025-06-30 01:44:22,242 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_salaries1.dump
+2025-06-30 01:44:22,243 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_salaries2.dump
+2025-06-30 01:44:22,243 | INFO     | Found file: /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_salaries3.dump
+2025-06-30 01:44:22,243 | INFO     | Connecting to database at aurora-mysql-cluster.cluster-c472k0sskdbg.us-east-1.rds.amazonaws.com (attempt 1/3)
+2025-06-30 01:44:22,366 | INFO     | Connected to Aurora. Creating database if not exists...
+2025-06-30 01:44:22,425 | INFO     | Using database: sampledb
+2025-06-30 01:44:22,445 | INFO     | Employee tables not found, will create them
+2025-06-30 01:44:22,445 | INFO     | Reading schema file...
+2025-06-30 01:44:22,447 | INFO     | Creating tables...
+2025-06-30 01:44:22,744 | INFO     | Loading data from dump files...
+2025-06-30 01:44:22,745 | INFO     | Loading small data files...
+2025-06-30 01:44:22,745 | INFO     | Loading departments data...
+2025-06-30 01:44:22,746 | ERROR    | Error loading departments: Cursor closed
+2025-06-30 01:44:22,767 | INFO     | Loading dept_manager data...
+2025-06-30 01:44:22,769 | ERROR    | Error loading dept_manager: Cursor closed
+2025-06-30 01:44:22,788 | INFO     | Loading employees data in chunks...
+2025-06-30 01:44:22,789 | INFO     | Processing large file /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_employees.dump in chunks...
+2025-06-30 01:44:22,789 | INFO     | Sample content from employees: INSERT INTO `employees` VALUES (10001,'1953-09-02','Georgi','Facello','M','1986-06-26'),
+(10002,'1964-06-02','Bezalel','Simmel','F','1985-11-21'),
+(10003,'1959-12-03','Parto','Bamford','M','1986-08-28...
+2025-06-30 01:44:22,790 | INFO     | Processing employees with multiple INSERT statements
+2025-06-30 01:44:33,968 | INFO     | Completed employees loading: 17 successful batches out of 17 total
+2025-06-30 01:44:33,968 | INFO     | Loading dept_emp data in chunks...
+2025-06-30 01:44:33,969 | INFO     | Processing large file /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_dept_emp.dump in chunks...
+2025-06-30 01:44:33,970 | INFO     | Sample content from dept_emp: INSERT INTO `dept_emp` VALUES (10001,'d005','1986-06-26','9999-01-01'),
+(10002,'d007','1996-08-03','9999-01-01'),
+(10003,'d004','1995-12-03','9999-01-01'),
+(10004,'d004','1986-12-01','9999-01-01'),
+(1...
+2025-06-30 01:44:33,970 | INFO     | Processing dept_emp with multiple INSERT statements
+2025-06-30 01:44:34,516 | ERROR    | Error in batch 1 for dept_emp: (1452, 'Cannot add or update a child row: a foreign key constraint fails (`sampledb`.`dept_emp`, CON...
+2025-06-30 01:44:35,137 | ERROR    | Error in batch 2 for dept_emp: (1452, 'Cannot add or update a child row: a foreign key constraint fails (`sampledb`.`dept_emp`, CON...
+2025-06-30 01:44:35,682 | ERROR    | Error in batch 3 for dept_emp: (1452, 'Cannot add or update a child row: a foreign key constraint fails (`sampledb`.`dept_emp`, CON...
+2025-06-30 01:44:36,179 | ERROR    | Error in batch 4 for dept_emp: (1452, 'Cannot add or update a child row: a foreign key constraint fails (`sampledb`.`dept_emp`, CON...
+2025-06-30 01:44:36,739 | ERROR    | Error in batch 5 for dept_emp: (1452, 'Cannot add or update a child row: a foreign key constraint fails (`sampledb`.`dept_emp`, CON...
+2025-06-30 01:44:37,248 | ERROR    | Error in batch 6 for dept_emp: (1452, 'Cannot add or update a child row: a foreign key constraint fails (`sampledb`.`dept_emp`, CON...
+2025-06-30 01:44:37,999 | ERROR    | Error in batch 7 for dept_emp: (1452, 'Cannot add or update a child row: a foreign key constraint fails (`sampledb`.`dept_emp`, CON...
+2025-06-30 01:44:38,871 | ERROR    | Error in batch 8 for dept_emp: (1452, 'Cannot add or update a child row: a foreign key constraint fails (`sampledb`.`dept_emp`, CON...
+2025-06-30 01:44:39,570 | ERROR    | Error in batch 9 for dept_emp: (1452, 'Cannot add or update a child row: a foreign key constraint fails (`sampledb`.`dept_emp`, CON...
+2025-06-30 01:44:40,089 | ERROR    | Error in batch 10 for dept_emp: (1452, 'Cannot add or update a child row: a foreign key constraint fails (`sampledb`.`dept_emp`, CON...
+2025-06-30 01:44:40,670 | ERROR    | Error in batch 11 for dept_emp: (1452, 'Cannot add or update a child row: a foreign key constraint fails (`sampledb`.`dept_emp`, CON...
+2025-06-30 01:44:41,331 | ERROR    | Error in batch 12 for dept_emp: (1452, 'Cannot add or update a child row: a foreign key constraint fails (`sampledb`.`dept_emp`, CON...
+2025-06-30 01:44:42,010 | ERROR    | Error in batch 13 for dept_emp: (1452, 'Cannot add or update a child row: a foreign key constraint fails (`sampledb`.`dept_emp`, CON...
+2025-06-30 01:44:42,362 | ERROR    | Error in batch 14 for dept_emp: (1452, 'Cannot add or update a child row: a foreign key constraint fails (`sampledb`.`dept_emp`, CON...
+2025-06-30 01:44:42,384 | INFO     | Completed dept_emp loading: 0 successful batches out of 14 total
+2025-06-30 01:44:42,384 | INFO     | Loading titles data in chunks...
+2025-06-30 01:44:42,384 | INFO     | Processing large file /Users/mattforbush/Projects/AWS-DE_Academy/data/test_db/load_titles.dump in chunks...
+2025-06-30 01:44:42,385 | INFO     | Sample content from titles: INSERT INTO `titles` VALUES (10001,'Senior Engineer','1986-06-26','9999-01-01'),
+(10002,'Staff','1996-08-03','9999-01-01'),
+(10003,'Senior Engineer','1995-12-03','9999-01-01'),
+(10004,'Engineer','1986...
+2025-06-30 01:44:42,385 | INFO     | Processing titles with multiple INSERT statements
